@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xdr:wsDr xmlns:xdr="http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing"
+    xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+    <xdr:twoCellAnchor>
+        <xdr:from>
+            <xdr:col>0</xdr:col>
+            <xdr:colOff>563880</xdr:colOff>
+            <xdr:row>2</xdr:row>
+            <xdr:rowOff>53340</xdr:rowOff>
+        </xdr:from>
+        <xdr:to>
+            <xdr:col>3</xdr:col>
+            <xdr:colOff>327660</xdr:colOff>
+            <xdr:row>5</xdr:row>
+            <xdr:rowOff>190500</xdr:rowOff>
+        </xdr:to>
+        <xdr:sp macro="" textlink="">
+            <xdr:nvSpPr>
+                <xdr:cNvPr id="2" name="テキスト ボックス 1">
+                    <a:extLst>
+                        <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                            <a16:creationId
+                                xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main"
+                                id="{4135A68F-798B-5086-1F24-77F1815CA2C9}" />
+                        </a:ext>
+                    </a:extLst>
+                </xdr:cNvPr>
+                <xdr:cNvSpPr txBox="1" />
+            </xdr:nvSpPr>
+            <xdr:spPr>
+                <a:xfrm>
+                    <a:off x="563880" y="510540" />
+                    <a:ext cx="1775460" cy="822960" />
+                </a:xfrm>
+                <a:prstGeom prst="rect">
+                    <a:avLst />
+                </a:prstGeom>
+                <a:solidFill>
+                    <a:schemeClr val="lt1" />
+                </a:solidFill>
+                <a:ln w="9525" cmpd="sng">
+                    <a:solidFill>
+                        <a:schemeClr val="lt1">
+                            <a:shade val="50000" />
+                        </a:schemeClr>
+                    </a:solidFill>
+                </a:ln>
+            </xdr:spPr>
+            <xdr:style>
+                <a:lnRef idx="0">
+                    <a:scrgbClr r="0" g="0" b="0" />
+                </a:lnRef>
+                <a:fillRef idx="0">
+                    <a:scrgbClr r="0" g="0" b="0" />
+                </a:fillRef>
+                <a:effectRef idx="0">
+                    <a:scrgbClr r="0" g="0" b="0" />
+                </a:effectRef>
+                <a:fontRef idx="minor">
+                    <a:schemeClr val="dk1" />
+                </a:fontRef>
+            </xdr:style>
+            <xdr:txBody>
+                <a:bodyPr vertOverflow="clip" horzOverflow="clip" wrap="square" rtlCol="0"
+                    anchor="t" />
+                <a:lstStyle />
+                <a:p>
+                    <a:r>
+                        <a:rPr kumimoji="1" lang="en-US" altLang="ja-JP" sz="1100" />
+                        <a:t>Sheet1</a:t>
+                    </a:r>
+                    <a:r>
+                        <a:rPr kumimoji="1" lang="ja-JP" altLang="en-US" sz="1100" />
+                        <a:t>のテキストボックス</a:t>
+                    </a:r>
+                </a:p>
+            </xdr:txBody>
+        </xdr:sp>
+        <xdr:clientData />
+    </xdr:twoCellAnchor>
+    <xdr:twoCellAnchor>
+        <xdr:from>
+            <xdr:col>1</xdr:col>
+            <xdr:colOff>137160</xdr:colOff>
+            <xdr:row>8</xdr:row>
+            <xdr:rowOff>182880</xdr:rowOff>
+        </xdr:from>
+        <xdr:to>
+            <xdr:col>3</xdr:col>
+            <xdr:colOff>236220</xdr:colOff>
+            <xdr:row>13</xdr:row>
+            <xdr:rowOff>68580</xdr:rowOff>
+        </xdr:to>
+        <xdr:sp macro="" textlink="">
+            <xdr:nvSpPr>
+                <xdr:cNvPr id="3" name="矢印: 右 2">
+                    <a:extLst>
+                        <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
+                            <a16:creationId
+                                xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main"
+                                id="{7C065C38-32C2-ED58-C364-3409B508AF0D}" />
+                        </a:ext>
+                    </a:extLst>
+                </xdr:cNvPr>
+                <xdr:cNvSpPr />
+            </xdr:nvSpPr>
+            <xdr:spPr>
+                <a:xfrm>
+                    <a:off x="807720" y="2011680" />
+                    <a:ext cx="1440180" cy="1028700" />
+                </a:xfrm>
+                <a:prstGeom prst="rightArrow">
+                    <a:avLst />
+                </a:prstGeom>
+            </xdr:spPr>
+            <xdr:style>
+                <a:lnRef idx="2">
+                    <a:schemeClr val="accent1">
+                        <a:shade val="15000" />
+                    </a:schemeClr>
+                </a:lnRef>
+                <a:fillRef idx="1">
+                    <a:schemeClr val="accent1" />
+                </a:fillRef>
+                <a:effectRef idx="0">
+                    <a:schemeClr val="accent1" />
+                </a:effectRef>
+                <a:fontRef idx="minor">
+                    <a:schemeClr val="lt1" />
+                </a:fontRef>
+            </xdr:style>
+            <xdr:txBody>
+                <a:bodyPr vertOverflow="clip" horzOverflow="clip" rtlCol="0" anchor="t" />
+                <a:lstStyle />
+                <a:p>
+                    <a:pPr algn="l" />
+                    <a:r>
+                        <a:rPr kumimoji="1" lang="en-US" altLang="ja-JP" sz="1100" />
+                        <a:t>Sheet1</a:t>
+                    </a:r>
+                    <a:r>
+                        <a:rPr kumimoji="1" lang="ja-JP" altLang="en-US" sz="1100" />
+                        <a:t>の右矢印</a:t>
+                    </a:r>
+                </a:p>
+            </xdr:txBody>
+        </xdr:sp>
+        <xdr:clientData />
+    </xdr:twoCellAnchor>
+</xdr:wsDr>
