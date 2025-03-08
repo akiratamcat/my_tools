@@ -1,2 +1,10 @@
-.mypy_cache
+__pycache__
 *.code-workspace
+.mypy_cache
+EXCEL/search_excel_gui_tkk/build/
+EXCEL/search_excel_gui_tkk/dist/
+OCR/ImageOCR/build/
+OCR/ImageOCR/dist/
+PDF/PDF_tool_1/build/
+PDF/pdf_tool/build/
+PDF/pdf_tool_2/build/
