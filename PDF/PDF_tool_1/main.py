@@ -1,3 +1,15 @@
+"""
+
+python.exe -m pip install --upgrade pip
+
+pip install --upgrade PyInstaller
+
+pip install --upgrade TkEasyGUI
+pip install --upgrade PyMuPDF
+
+
+"""
+
 from typing import Any, Dict
 
 import TkEasyGUI as sg
