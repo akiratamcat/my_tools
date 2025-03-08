@@ -31,11 +31,7 @@ def main() -> None:
         ],
         [
             sg.Button("指定したページを回転", size=(38, 2), font=("Helvetica", 12), key="ROTATE"),
-            sg.Button("指定したページを削除", size=(38, 2), font=("Helvetica", 12), key="DELEET"),
-        ],
-        [
-            sg.Button("指定した位置へPDFファイルを挿入", size=(38, 2), font=("Helvetica", 12), key="INSERT"),
-            sg.Button("PDF ファイルからテキストと画像を抽出", size=(38, 2), font=("Helvetica", 12), key="EXTRACT"),
+            sg.Button("指定したページを削除", size=(38, 2), font=("Helvetica", 12), key="DELETE"),
         ],
     ]
 
