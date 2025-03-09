@@ -1,13 +1,16 @@
+"""
+スタイルの設定
+"""
+
 from tkinter import ttk
-
-
 
 
 def set_Style(
     s: ttk.Style,
 ) -> None:
     # style
-    s.theme_use("winnative")
+    # s.theme_use("winnative")
+    s.theme_use("default")
     # Label
     s.configure("TLabel", font=("Helvetica", 12), padding=5)
     s.configure("Title.TLabel", font=("Helvetica", 16), padding=5)

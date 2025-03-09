@@ -2,9 +2,6 @@
 PDF ファイルを分割
 """
 
-
-
-
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 from typing import List

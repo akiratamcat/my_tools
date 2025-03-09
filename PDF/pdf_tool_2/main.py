@@ -3,7 +3,6 @@ PDF ファイル 加工ツール
 
 python.exe -m pip install --upgrade pip
 
-pip install --upgrade PyInstaller
 pip install --upgrade PyMuPDF
 
 """

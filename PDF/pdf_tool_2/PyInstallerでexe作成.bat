@@ -1,7 +1,7 @@
 @echo off
 echo.
-echo Python ‰¼‘zŠÂ‹«‚Åƒrƒ‹ƒh‚·‚é•K—v‚ª‚ ‚è‚Ü‚·B
-echo €”õ‚Í‚¢‚¢‚Å‚·‚©H
+echo Python ï¿½ï¿½ï¿½zï¿½Â‹ï¿½ï¿½Åƒrï¿½ï¿½ï¿½hï¿½ï¿½ï¿½ï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
+echo ï¿½ï¿½ï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½ï¿½H
 pause
 echo off
 
