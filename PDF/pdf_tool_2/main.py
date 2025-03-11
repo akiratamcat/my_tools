@@ -1,9 +1,17 @@
 """
 PDF ファイル 加工ツール
 
+### pip ###
+
 python.exe -m pip install --upgrade pip
 
 pip install --upgrade PyMuPDF
+pip install --upgrade chardet
+pip install --upgrade pillow
+pip install --upgrade pytesseract
+
+pip install --upgrade cx_Freeze
+
 
 """
 

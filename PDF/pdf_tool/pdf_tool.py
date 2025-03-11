@@ -2,13 +2,19 @@
 PDF ツール
 結合、分割、回転、テキストと画像を抽出。
 
-- pip
+
+### pip ###
+
 python.exe -m pip install --upgrade pip
+
 pip install --upgrade chardet
 pip install --upgrade pillow
 pip install --upgrade pymupdf
 pip install --upgrade pytesseract
 pip install --upgrade TkEasyGUI
+
+pip install --upgrade cx_Freeze
+
 
 """
 

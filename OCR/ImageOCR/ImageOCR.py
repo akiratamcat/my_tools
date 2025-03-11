@@ -9,12 +9,16 @@ https://github.com/tesseract-ocr/tesseract/releases
 https://github.com/tesseract-ocr/tessdata_best/blob/main/jpn.traineddata
 https://github.com/tesseract-ocr/tessdata_best/blob/main/jpn_vert.traineddata
 
+### pip ###
+
 python.exe -m pip install --upgrade pip
+
 pip install --upgrade chardet
 pip install --upgrade pillow
 pip install --upgrade pytesseract
 pip install --upgrade TkEasyGUI
-pip install --upgrade PyInstaller
+
+pip install --upgrade cx_Freeze
 
 """
 
