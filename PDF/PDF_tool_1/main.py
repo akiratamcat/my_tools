@@ -4,8 +4,8 @@
 
 python.exe -m pip install --upgrade pip
 
-pip install --upgrade TkEasyGUI
 pip install --upgrade PyMuPDF
+pip install --upgrade TkEasyGUI
 
 pip install --upgrade cx_Freeze
 
