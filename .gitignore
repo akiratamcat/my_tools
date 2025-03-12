@@ -1,3 +1,4 @@
+.venv
 __pycache__
 *.code-workspace
 .mypy_cache
@@ -6,5 +7,8 @@ EXCEL/search_excel_gui_tkk/dist/
 OCR/ImageOCR/build/
 OCR/ImageOCR/dist/
 PDF/PDF_tool_1/build/
+PDF/PDF_tool_1/dist/
 PDF/pdf_tool/build/
+PDF/pdf_tool/dist/
 PDF/pdf_tool_2/build/
+PDF/pdf_tool_2/dist/
