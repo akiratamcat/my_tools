@@ -1,26 +1,62 @@
 """
-スタイルの設定
+共通部分
 """
 
-from tkinter import ttk
+import sys
+from tkinter import messagebox, ttk
 
 
-def set_Style(
-    s: ttk.Style,
-) -> None:
-    # style
-    # s.theme_use("winnative")
-    s.theme_use("default")
+def mbox_err(message: str) -> None:
+    """
+    エラーメッセージボックス
+    """
+    messagebox.showerror(title="エラー", message=message)
+    return None
+
+
+def mbox_info(message: str) -> None:
+    """
+    情報メッセージボックス
+    """
+    messagebox.showinfo(title="情報", message=message)
+    return None
+
+
+# スタイル設定
+def set_Style(s: ttk.Style) -> None:
+    """スタイル設定
+
+    Args:
+        s (ttk.Style): ttk.Style オブジェクト
+
+    Returns:
+        None
+    """
+    # style & Font
+    fontname: str = ""
+    if sys.platform == "win32":
+        s.theme_use(themename="winnative")
+        fontname = "Meiryo UI"
+    else:
+        s.theme_use(themename="default")
+        fontname = "System"
+
+    fsize_normal: int = 10
+    fsize_big: int = 14
+
     # Label
-    s.configure("TLabel", font=("Helvetica", 12), padding=5)
-    s.configure("Title.TLabel", font=("Helvetica", 16), padding=5)
+    s.configure(style="TLabel", font=(fontname, fsize_normal), padding=5)
+    s.configure(style="Title.TLabel", font=(fontname, fsize_big), padding=5)
     # Entry
-    s.configure("TEntry", font=("Helvetica", 12), padding=5)
+    s.configure(style="TEntry", font=(fontname, fsize_normal), padding=5)
     # Checkbutton
-    s.configure("TCheckbutton", font=("Helvetica", 12), padding=5)
+    s.configure(style="TCheckbutton", font=(fontname, fsize_normal), padding=5)
+    # Checkbutton
+    s.configure(style="TCombobox", font=(fontname, fsize_normal), padding=1)
     # Button
-    s.configure("TButton", font=("Helvetica", 12), padding=5)
+    s.configure(style="TButton", font=(fontname, fsize_normal), padding=5)
     # Treeview
-    s.configure("Treeview", font=("Helvetica", 12))  # フォントサイズを 12 に設定
-    s.configure("Treeview.Heading", font=("Helvetica", 12, "bold"))  # ヘッダーのフォントサイズを 12 に設定
+    s.configure(style="Treeview", font=(fontname, fsize_normal), padding=2)
+    s.configure(style="Treeview.Heading", font=(fontname, fsize_normal), padding=2)
+
     return None
