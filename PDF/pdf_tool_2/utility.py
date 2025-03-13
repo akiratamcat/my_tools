@@ -35,7 +35,8 @@ def set_Style(s: ttk.Style) -> None:
     # style & Font
     fontname: str = ""
     if sys.platform == "win32":
-        s.theme_use(themename="winnative")
+        # s.theme_use(themename="winnative")
+        s.theme_use(themename="default")
         fontname = "Meiryo UI"
     else:
         s.theme_use(themename="default")
