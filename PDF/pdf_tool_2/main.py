@@ -89,6 +89,7 @@ def main() -> None:
     #
 
     # root ウィンドウの設定
+
     win_main: Tk = tk.Tk()
     win_main.title(string="PDF ファイル 加工ツール")
     win_main.resizable(width=False, height=False)  # ウィンドウのサイズ変更を無効化
@@ -96,23 +97,28 @@ def main() -> None:
     win_main.focus_force()
 
     # スタイルの設定
+
     style = ttk.Style()
     set_Style(s=style)
 
     # メニューバーの設定
+
     menu_bar: Menu = Menu(master=win_main)
     win_main.config(menu=menu_bar)
 
     # ファイルメニューの設定
+
     file_menu: Menu = Menu(master=menu_bar, tearoff=0)
     menu_bar.add_cascade(label="ファイル", menu=file_menu)
     file_menu.add_command(label="終了", command=on_exit)
 
     # メインフレームの設定
+
     frame = ttk.Frame(win_main, padding=10)
     frame.grid(row=0, column=0)
 
     # 各ボタンの設定
+
     button_width: int = 46
     merge_btn: ttk.Button = ttk.Button(
         master=frame,

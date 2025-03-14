@@ -91,7 +91,8 @@ def split_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     # GUI: Tkinter.tk & Tkinter.ttk
     #
 
-    # root ウィンドウの設定
+    # Toplevel ウィンドウの設定
+
     win_me = tk.Toplevel()
     win_me.title(string="PDF ファイルを分割")
     win_me.resizable(width=False, height=False)
@@ -99,14 +100,17 @@ def split_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     win_me.focus_force()
 
     # タイトル
+
     lbl_title = ttk.Label(master=win_me, text="PDF ファイルを分割", style="Title.TLabel")
     lbl_title.pack()
 
-    # フレームの追加
+    # フレーム
+
     frame = ttk.Frame(master=win_me, padding=10)
     frame.pack()
 
     # 分割するPDFファイル
+
     lbl_target_file = ttk.Label(master=frame, text="分割するPDFファイル", style="TLabel")
     lbl_target_file.grid(row=0, column=0, padx=5, pady=5, sticky=tk.W)
 
@@ -117,6 +121,7 @@ def split_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     btn_target_file.grid(row=0, column=4, padx=5, pady=5, sticky=tk.W)
 
     # 全ページを分割するかどうか
+
     var_split_all = tk.BooleanVar()
     var_split_all.set(value=False)
     chk_split_all_checkbutton = ttk.Checkbutton(
@@ -131,6 +136,7 @@ def split_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     chk_split_all_checkbutton.grid(row=2, column=0, columnspan=5, padx=5, pady=5, sticky=tk.W)
 
     # ページ番号
+
     lbl_page_no_1 = ttk.Label(master=frame, text="分割するページ番号", style="TLabel")
     lbl_page_no_1.grid(row=3, column=0, padx=5, pady=5, sticky=tk.W)
 

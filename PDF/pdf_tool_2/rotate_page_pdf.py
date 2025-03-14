@@ -99,7 +99,8 @@ def rotate_page_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     # GUI: Tkinter.tk & Tkinter.ttk
     #
 
-    # root ウィンドウの設定
+    # Toplevel ウィンドウの設定
+
     win_me = tk.Toplevel()
     win_me.title(string="PDF ファイルの指定したページを回転")
     win_me.resizable(width=False, height=False)

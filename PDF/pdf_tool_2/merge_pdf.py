@@ -23,7 +23,7 @@ def add_file(tree: Treeview) -> None:
     file_path: str = filedialog.askopenfilename(filetypes=[("PDF files", "*.pdf")])
     if file_path:
         file_name: str = os.path.normpath(path=file_path).split(sep=os.sep)[-1]
-        path_name: str = os.path.dirname(os.path.normpath(file_path))
+        path_name: str = os.path.dirname(p=os.path.normpath(path=file_path))
         tree.insert(parent="", index="end", values=(len(tree.get_children()) + 1, file_name, path_name))
     return None
 
@@ -34,9 +34,9 @@ def move_up(tree: Treeview) -> None:
     """
     selected_item: tuple[str, ...] = tree.selection()
     if selected_item:
-        index: int = tree.index(item=selected_item)
+        index: int = tree.index(item=selected_item[0])
         if index > 0:
-            tree.move(item=selected_item, parent="", index=index - 1)
+            tree.move(item=selected_item[0], parent="", index=index - 1)
             update_order(tree=tree)
     return None
 
@@ -47,9 +47,9 @@ def move_down(tree: Treeview) -> None:
     """
     selected_item: tuple[str, ...] = tree.selection()
     if selected_item:
-        index: int = tree.index(item=selected_item)
+        index: int = tree.index(item=selected_item[0])
         if index < (len(tree.get_children()) - 1):
-            tree.move(item=selected_item, parent="", index=index + 1)
+            tree.move(item=selected_item[0], parent="", index=index + 1)
             update_order(tree=tree)
     return None
 
@@ -64,7 +64,7 @@ def delete_item(tree: Treeview) -> None:
     # 選択されたアイテムを削除
     selected_item: tuple[str, ...] = tree.selection()
     if selected_item:
-        tree.delete(selected_item)
+        tree.delete(selected_item[0])
         update_order(tree=tree)
     return None
 
@@ -155,7 +155,8 @@ def merge_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     # GUI: Tkinter.tk & Tkinter.ttk
     #
 
-    # root ウィンドウの設定
+    # Toplevel ウィンドウの設定
+
     win_me = tk.Toplevel()
     win_me.title(string="PDF Tool")
     win_me.resizable(width=False, height=False)
@@ -163,10 +164,12 @@ def merge_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     win_me.focus_force()
 
     # タイトル
+
     lbl_title = ttk.Label(master=win_me, text="PDF ファイルを結合", style="Title.TLabel")
     lbl_title.pack()
 
     # 連結委する PDF ファイルの一覧
+
     columns: tuple[Literal["結合順"], Literal["ファイル名"], Literal["パス"]] = ("結合順", "ファイル名", "パス")
     tree_pdf = ttk.Treeview(master=win_me, columns=columns, show="headings", height=10, style="Treeview")
     for col in columns:
@@ -177,6 +180,7 @@ def merge_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     tree_pdf.pack()
 
     # 一覧を操作するためのボタンを一覧の下に配置するためのフレーム
+
     frame1 = ttk.Frame(master=win_me)
     frame1.pack()
 
@@ -193,6 +197,7 @@ def merge_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     btn_delete.grid(row=0, column=3, padx=5, pady=5)
 
     # 保存場所とファイル名の設定に関するフレーム
+
     frame2 = ttk.Frame(master=win_me)
     frame2.pack(fill="x")
 
@@ -207,9 +212,10 @@ def merge_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     btn_save_as.grid(row=0, column=3, pady=10, sticky="w")
 
     # 結合ボタンのフレーム
+
     frame3 = ttk.Frame(master=win_me)
     frame3.pack(fill="x")
-    frame3.columnconfigure(index=0, weight=1)  # btn_merge_pdf_all を右端へ寄せるための設定
+    frame3.columnconfigure(index=0, weight=1)
 
     btn_merge_pdf_all = ttk.Button(
         master=frame3, text="一覧の PDF ファイルを順に結合", style="TButton", command=cmd_merge_pdf_all
