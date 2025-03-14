@@ -1,6 +1,13 @@
+altgraph==0.17.4
 chardet==5.2.0
+lief==0.16.3
 packaging==24.2
+pefile==2023.2.7
 pillow==11.1.0
+pyinstaller==6.12.0
+pyinstaller-hooks-contrib==2025.1
 pyperclip==1.9.0
 pytesseract==0.3.13
+pywin32-ctypes==0.2.3
+setuptools==75.9.1
 TkEasyGUI==1.0.21

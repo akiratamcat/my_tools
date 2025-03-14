@@ -2,10 +2,10 @@
 
 
 a = Analysis(
-    ['search_excel_gui.py', 'excel_newtype.py', 'excel_oldtype.py', 'utility.py'],
+    ['ImageOCR.py'],
     pathex=[],
-    binaries=[],
-    datas=[],
+    binaries=[(r'C:\Program Files\Tesseract-OCR', r'tesseract')],
+    datas=[(r'C:\Program Files\Tesseract-OCR\tessdata', r'data/tessdata')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -21,12 +21,12 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name='search_excel_gui.exe',
+    name='ImageOCR',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    console=True,
+    console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
@@ -40,5 +40,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='excel_newtype.exe',
+    name='ImageOCR',
 )

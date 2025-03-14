@@ -1,3 +1,14 @@
+altgraph==0.17.4
+cx_Freeze==7.2.10
+cx_Logging==3.2.1
+lief==0.16.3
+packaging==24.2
+pefile==2023.2.7
 pillow==11.1.0
+pyinstaller==6.12.0
+pyinstaller-hooks-contrib==2025.1
+PyMuPDF==1.25.3
 pyperclip==1.9.0
+pywin32-ctypes==0.2.3
+setuptools==75.9.1
 TkEasyGUI==1.0.21
