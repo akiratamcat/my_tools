@@ -2,10 +2,10 @@
 
 
 a = Analysis(
-    ['ImageOCR.py'],
+    ['main.py'],
     pathex=[],
-    binaries=[(r'C:\Program Files\Tesseract-OCR', r'tesseract')],
-    datas=[(r'C:\Program Files\Tesseract-OCR\tessdata', r'data/tessdata')],
+    binaries=[],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -22,7 +22,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='ImageOCR',
+    name='pdf_tool',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

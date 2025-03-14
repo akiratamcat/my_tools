@@ -4,8 +4,8 @@
 a = Analysis(
     ['pdf_tool.py'],
     pathex=[],
-    binaries=[(r'C:\Program Files\Tesseract-OCR', r'tesseract')],
-    datas=[(r'C:\Program Files\Tesseract-OCR\tessdata', r'data/tessdata')],
+    binaries=[],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
