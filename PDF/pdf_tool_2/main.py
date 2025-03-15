@@ -16,6 +16,8 @@ import tkinter as tk
 from tkinter import Menu, Tk, ttk
 
 from delete_page_pdf import delete_page_pdf_window
+from extract_text_and_image_pdf import extract_text_and_image_pdf_window
+from insert_pdf import insert_pdf_window
 from merge_pdf import merge_pdf_window
 from rotate_page_pdf import rotate_page_pdf_window
 from split_pdf import split_pdf_window
@@ -74,14 +76,18 @@ def main() -> None:
         """
         指定したページ位置へ別の PDF ファイルを挿入
         """
-        # TODO 未実装
+        win_main.withdraw()
+        win_sub: tk.Toplevel = insert_pdf_window(win_parent=win_main)
+        win_sub.focus_force()
         return
 
     def on_extract_text_and_image_pdf() -> None:
         """
         PDF ファイルからテキストと画像を抽出
         """
-        # TODO 未実装
+        win_main.withdraw()
+        win_sub: tk.Toplevel = extract_text_and_image_pdf_window(win_parent=win_main)
+        win_sub.focus_force()
         return
 
     #
@@ -114,7 +120,7 @@ def main() -> None:
 
     # メインフレームの設定
 
-    frame = ttk.Frame(win_main, padding=10)
+    frame = ttk.Frame(win_main, padding=20)
     frame.grid(row=0, column=0)
 
     # 各ボタンの設定
@@ -126,6 +132,7 @@ def main() -> None:
         width=button_width,
         command=on_merge_pdf,
         style="TButton",
+        padding=10,
     )
     merge_btn.grid(row=0, column=0, padx=5)
 
@@ -135,6 +142,7 @@ def main() -> None:
         width=button_width,
         command=on_split_pdf,
         style="TButton",
+        padding=10,
     )
     split_btn.grid(row=1, column=0, padx=5)
 
@@ -144,6 +152,7 @@ def main() -> None:
         width=button_width,
         command=on_rotate_page_pdf,
         style="TButton",
+        padding=10,
     )
     rotate_page_btn.grid(row=2, column=0, padx=5)
 
@@ -153,6 +162,7 @@ def main() -> None:
         width=button_width,
         command=on_delete_page_pdf,
         style="TButton",
+        padding=10,
     )
     delete_page_btn.grid(row=3, column=0, padx=5)
 
@@ -162,6 +172,7 @@ def main() -> None:
         width=button_width,
         command=on_insert_pdf,
         style="TButton",
+        padding=10,
     )
     insert_btn.grid(row=4, column=0, padx=5)
 
@@ -171,6 +182,7 @@ def main() -> None:
         width=button_width,
         command=on_extract_text_and_image_pdf,
         style="TButton",
+        padding=10,
     )
     extract_text_and_image_btn.grid(row=5, column=0, padx=5)
 

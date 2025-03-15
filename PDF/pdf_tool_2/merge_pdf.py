@@ -174,68 +174,68 @@ def merge_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     win_me.focus_force()
 
     # タイトル
-    frame1 = ttk.Frame(master=win_me)
-    frame1.pack()
 
-    btn_add = ttk.Button(master=frame1, text="メニューへ戻る", style="TButton", command=cmd_back_to_menu)
-    btn_add.grid(row=0, column=0, padx=5, pady=5)
+    frameMain = ttk.Frame(master=win_me)
+    frameMain.pack()
 
-    lbl_title = ttk.Label(master=frame1, text="PDF ファイルを結合", style="Title.TLabel")
-    lbl_title.grid(row=0, column=2, columnspan=3, padx=5, pady=5)
+    btn_add = ttk.Button(master=frameMain, text="メニューへ戻る", style="TButton", padding=10, command=cmd_back_to_menu)
+    btn_add.grid(row=0, column=0, padx=10, pady=5, sticky="W")  # sticky="w"で左端に配置
+
+    lbl_title = ttk.Label(master=frameMain, text="PDF ファイルを結合", style="Title.TLabel", padding=10)
+    lbl_title.grid(row=0, column=1, padx=5, pady=5, columnspan=2)  # タイトルを中央に配置
+
+    lbl_dummy = ttk.Label(master=frameMain, text="", style="Title.TLabel", padding=10)
+    lbl_dummy.grid(row=0, column=3, padx=5, pady=5)
 
     # 連結委する PDF ファイルの一覧
 
     columns: tuple[Literal["結合順"], Literal["ファイル名"], Literal["パス"]] = ("結合順", "ファイル名", "パス")
-    tree_pdf = ttk.Treeview(master=win_me, columns=columns, show="headings", height=10, style="Treeview")
+    tree_pdf = ttk.Treeview(master=frameMain, columns=columns, show="headings", height=12, style="Treeview", padding=2)
     for col in columns:
         tree_pdf.heading(column=col, text=col)
     tree_pdf.column(column="結合順", width=80, anchor="center")
     tree_pdf.column(column="ファイル名", width=400)
     tree_pdf.column(column="パス", width=720)
-    tree_pdf.pack()
+    tree_pdf.grid(row=1, column=0, padx=10, pady=5, columnspan=4)
 
     # 一覧を操作するためのボタンを一覧の下に配置するためのフレーム
 
-    frame2 = ttk.Frame(master=win_me)
-    frame2.pack()
+    btn_add = ttk.Button(
+        master=frameMain, text="一覧へ PDF ファイルを追加", style="TButton", padding=10, command=cmd_add_file
+    )
+    btn_add.grid(row=2, column=0, padx=10, pady=5, sticky="E")
 
-    btn_add = ttk.Button(master=frame2, text="一覧へ PDF ファイルを追加", style="TButton", command=cmd_add_file)
-    btn_add.grid(row=0, column=0, padx=5, pady=5)
+    btn_up = ttk.Button(master=frameMain, text="↑", style="TButton", padding=10, command=cmd_move_up)
+    btn_up.grid(row=2, column=1, padx=5, pady=5, sticky="E")
 
-    btn_up = ttk.Button(master=frame2, text="↑", style="TButton", command=cmd_move_up)
-    btn_up.grid(row=0, column=1)
+    btn_down = ttk.Button(master=frameMain, text="↓", style="TButton", padding=10, command=cmd_move_down)
+    btn_down.grid(row=2, column=2, padx=5, pady=5, sticky="W")
 
-    btn_down = ttk.Button(master=frame2, text="↓", style="TButton", command=cmd_move_down)
-    btn_down.grid(row=0, column=2)
-
-    btn_delete = ttk.Button(master=frame2, text="一覧から PDF ファイルを削除", style="TButton", command=cmd_delete_item)
-    btn_delete.grid(row=0, column=3, padx=5, pady=5)
+    btn_delete = ttk.Button(
+        master=frameMain, text="一覧から PDF ファイルを削除", style="TButton", padding=10, command=cmd_delete_item
+    )
+    btn_delete.grid(row=2, column=3, padx=5, pady=5, sticky="W")
 
     # 保存場所とファイル名の設定に関するフレーム
 
-    frame3 = ttk.Frame(master=win_me)
-    frame3.pack(fill="x")
-
-    lbl_save_path = ttk.Label(master=frame3, text="保存ファイル名", style="TLabel")
-    lbl_save_path.grid(row=0, column=0, padx=5, pady=5, sticky="w")
+    lbl_save_path = ttk.Label(master=frameMain, text="保存ファイル名", style="TLabel", padding=10)
+    lbl_save_path.grid(row=3, column=0, padx=5, pady=5, sticky="E")
 
     save_path = tk.StringVar()
-    ent_save_path = ttk.Entry(master=frame3, textvariable=save_path, width=134, style="TEntry")
-    ent_save_path.grid(row=0, column=1, columnspan=2, padx=5, pady=5, sticky="W")
+    ent_save_path = ttk.Entry(master=frameMain, textvariable=save_path, width=88, style="TEntry")
+    ent_save_path.grid(row=3, column=1, columnspan=2, padx=5, pady=5, sticky="W")
 
-    btn_save_as = ttk.Button(master=frame3, text="保存場所とファイル名を設定", style="TButton", command=cmd_save_as)
-    btn_save_as.grid(row=0, column=3, pady=10, sticky="w")
+    btn_save_as = ttk.Button(
+        master=frameMain, text="保存場所とファイル名を設定", style="TButton", padding=10, command=cmd_save_as
+    )
+    btn_save_as.grid(row=3, column=3, padx=5, pady=5, sticky="W")
 
     # 結合ボタンのフレーム
 
-    frame4 = ttk.Frame(master=win_me)
-    frame4.pack(fill="x")
-    frame4.columnconfigure(index=0, weight=1)
-
     btn_merge_pdf_all = ttk.Button(
-        master=frame4, text="一覧の PDF ファイルを順に結合", style="TButton", command=cmd_merge_pdf_all
+        master=frameMain, text="一覧の PDF ファイルを順に結合", style="TButton", padding=10, command=cmd_merge_pdf_all
     )
-    btn_merge_pdf_all.grid(row=0, column=1, padx=10, pady=10, sticky="E")
+    btn_merge_pdf_all.grid(row=4, column=3, padx=5, pady=5, sticky="E")
 
     return win_me
 
@@ -266,6 +266,6 @@ if __name__ == "__main__":
     style = ttk.Style()
     set_Style(s=style)
 
-    button = tk.Button(master=win_root, text="Open Sub Window", command=show_sub_window)
-    button.pack(padx=10, pady=10)
+    button = ttk.Button(master=win_root, text="Open Sub Window", padding=10, command=show_sub_window)
+    button.pack(padx=20, pady=20)
     win_root.mainloop()

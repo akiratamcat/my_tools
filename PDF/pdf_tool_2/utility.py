@@ -46,12 +46,11 @@ def set_Style(s: ttk.Style) -> None:
 
     fontname: str = ""
     if sys.platform == "win32":
-        # s.theme_use(themename="winnative")
-        s.theme_use(themename="default")
         fontname = "Meiryo UI"
     else:
-        s.theme_use(themename="default")
         fontname = "System"
+
+    s.theme_use(themename="default")
 
     # Label
     s.configure(style="TLabel", font=(fontname, FONT_SIZE_NORMAL), padding=5)

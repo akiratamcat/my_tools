@@ -17,7 +17,7 @@ def delete_page(pages: List[int]) -> bool:  # TODO 引数設定
 
 def delete_page_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     """
-    PDF ファイルを削除するウィンドウ
+    PDF ファイルの指定したページを削除するウィンドウ
     """
 
     def on_close() -> None:
@@ -156,6 +156,6 @@ if __name__ == "__main__":
     style = ttk.Style()
     set_Style(s=style)
 
-    button = tk.Button(master=win_root, text="Open Sub Window", command=show_sub_window)
-    button.pack(padx=10, pady=10)
+    button = ttk.Button(master=win_root, text="Open Sub Window", padding=10, command=show_sub_window)
+    button.pack(padx=20, pady=20)
     win_root.mainloop()

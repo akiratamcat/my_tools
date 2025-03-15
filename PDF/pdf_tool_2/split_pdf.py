@@ -31,6 +31,13 @@ def split_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
         win_parent.focus_force
         return None
 
+    def cmd_back_to_menu() -> None:
+        """
+        メニューへ戻る
+        """
+        on_close()
+        return None
+
     def cmd_select_file() -> None:
         """
         ファイル選択ダイアログを表示して、選択したファイルのパスをテキストボックスに設定
@@ -99,33 +106,39 @@ def split_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     win_me.protocol(name="WM_DELETE_WINDOW", func=on_close)  # ウィンドウが閉じられたときのコールバックを設定
     win_me.focus_force()
 
-    # タイトル
-
-    lbl_title = ttk.Label(master=win_me, text="PDF ファイルを分割", style="Title.TLabel")
-    lbl_title.pack()
-
     # フレーム
 
-    frame = ttk.Frame(master=win_me, padding=10)
-    frame.pack()
+    frameMain = ttk.Frame(master=win_me, padding=10)
+    frameMain.pack()
+
+    # タイトル
+
+    btn_add = ttk.Button(master=frameMain, text="メニューへ戻る", style="TButton", padding=10, command=cmd_back_to_menu)
+    btn_add.grid(row=0, column=0, padx=10, pady=5, sticky="W")
+
+    lbl_title = ttk.Label(master=frameMain, text="PDF ファイルを分割", style="Title.TLabel", padding=10)
+    lbl_title.grid(row=0, column=1, padx=5, pady=5, columnspan=2)
+
+    lbl_dummy = ttk.Label(master=frameMain, text="", style="Title.TLabel", padding=10)
+    lbl_dummy.grid(row=0, column=3, padx=5, pady=5)
 
     # 分割するPDFファイル
 
-    lbl_target_file = ttk.Label(master=frame, text="分割するPDFファイル", style="TLabel")
-    lbl_target_file.grid(row=0, column=0, padx=5, pady=5, sticky=tk.W)
+    lbl_target_file = ttk.Label(master=frameMain, text="分割するPDFファイル", style="TLabel")
+    lbl_target_file.grid(row=1, column=0, padx=5, pady=5, sticky="W")
 
-    ent_target_file = ttk.Entry(master=frame, width=80, style="TEntry")
-    ent_target_file.grid(row=0, column=1, columnspan=3, padx=10, pady=10)
+    ent_target_file = ttk.Entry(master=frameMain, width=80, style="TEntry")
+    ent_target_file.grid(row=1, column=1, columnspan=2, padx=10, pady=10)
 
-    btn_target_file = ttk.Button(master=frame, text="PDF ファイルを選択", style="TButton", command=cmd_select_file)
-    btn_target_file.grid(row=0, column=4, padx=5, pady=5, sticky=tk.W)
+    btn_target_file = ttk.Button(master=frameMain, text="PDF ファイルを選択", style="TButton", command=cmd_select_file)
+    btn_target_file.grid(row=1, column=3, padx=5, pady=5, sticky="W")
 
     # 全ページを分割するかどうか
 
     var_split_all = tk.BooleanVar()
     var_split_all.set(value=False)
     chk_split_all_checkbutton = ttk.Checkbutton(
-        master=frame,
+        master=frameMain,
         text="全てのページを１ページずつ分割",
         variable=var_split_all,
         onvalue=True,
@@ -133,34 +146,34 @@ def split_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
         style="TCheckbutton",
         command=cmd_toggle_ent_page_no,
     )
-    chk_split_all_checkbutton.grid(row=2, column=0, columnspan=5, padx=5, pady=5, sticky=tk.W)
+    chk_split_all_checkbutton.grid(row=2, column=0, columnspan=4, padx=5, pady=5, sticky="W")
 
     # ページ番号
 
-    lbl_page_no_1 = ttk.Label(master=frame, text="分割するページ番号", style="TLabel")
-    lbl_page_no_1.grid(row=3, column=0, padx=5, pady=5, sticky=tk.W)
+    lbl_page_no_1 = ttk.Label(master=frameMain, text="分割するページ番号", style="TLabel")
+    lbl_page_no_1.grid(row=3, column=0, padx=5, pady=5, sticky="W")
 
-    ent_page_no = ttk.Entry(master=frame, width=44, style="TEntry")
-    ent_page_no.grid(row=3, column=1, columnspan=2, padx=5, pady=5, sticky=tk.W)
+    ent_page_no = ttk.Entry(master=frameMain, width=44, style="TEntry")
+    ent_page_no.grid(row=3, column=1, padx=5, pady=5, sticky="W")
 
-    lbl_page_no_2 = ttk.Label(master=frame, text="カンマ区切りで複数指定可", style="TLabel")
-    lbl_page_no_2.grid(row=3, column=3, padx=5, pady=5, sticky=tk.W)
+    lbl_page_no_2 = ttk.Label(master=frameMain, text="カンマ区切りで複数指定可", style="TLabel")
+    lbl_page_no_2.grid(row=3, column=2, padx=5, pady=5, sticky="W")
 
     # 保存先、分割ボタン
 
-    lbl_save_path = ttk.Label(master=frame, text="分割結果の保存場所", style="TLabel")
-    lbl_save_path.grid(row=4, column=0, padx=5, pady=5, sticky=tk.W)
+    lbl_save_path = ttk.Label(master=frameMain, text="分割結果の保存場所", style="TLabel")
+    lbl_save_path.grid(row=4, column=0, padx=5, pady=5, sticky="W")
 
-    ent_save_path = ttk.Entry(master=frame, width=80, style="TEntry")
-    ent_save_path.grid(row=4, column=1, columnspan=3, padx=5, pady=5)
+    ent_save_path = ttk.Entry(master=frameMain, width=80, style="TEntry")
+    ent_save_path.grid(row=4, column=1, columnspan=2, padx=5, pady=5, sticky="W")
 
-    btn_save_path = ttk.Button(master=frame, text="保存場所を選択", style="TButton", command=cmd_select_file)
-    btn_save_path.grid(row=4, column=4, padx=5, pady=5, sticky=tk.W)
+    btn_save_path = ttk.Button(master=frameMain, text="保存場所を選択", style="TButton", command=cmd_select_file)
+    btn_save_path.grid(row=4, column=3, padx=5, pady=5, sticky="W")
 
     # 分割ボタン
 
-    btn_split = ttk.Button(master=frame, text="PDF ファイルを分割", style="TButton", command=cmd_split)
-    btn_split.grid(row=5, column=4, padx=5, pady=5, sticky=tk.W)
+    btn_split = ttk.Button(master=frameMain, text="PDF ファイルを分割", style="TButton", command=cmd_split)
+    btn_split.grid(row=5, column=3, padx=5, pady=5, sticky="W")
 
     return win_me
 
@@ -191,6 +204,6 @@ if __name__ == "__main__":
     style = ttk.Style()
     set_Style(s=style)
 
-    button = tk.Button(master=win_root, text="Open Sub Window", command=show_sub_window)
-    button.pack(padx=10, pady=10)
+    button = ttk.Button(master=win_root, text="Open Sub Window", padding=10, command=show_sub_window)
+    button.pack(padx=20, pady=20)
     win_root.mainloop()

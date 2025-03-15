@@ -25,7 +25,7 @@ def rotate_page(rotate: int, pages: List[int]) -> bool:  # TODO 引数設定
 
 def rotate_page_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     """
-    PDF ファイルを回転するウィンドウ
+    PDF ファイルの指定したページを回転
     """
 
     def on_close() -> None:
@@ -216,6 +216,6 @@ if __name__ == "__main__":
     style = ttk.Style()
     set_Style(s=style)
 
-    button = tk.Button(master=win_root, text="Open Sub Window", command=show_sub_window)
-    button.pack(padx=10, pady=10)
+    button = ttk.Button(master=win_root, text="Open Sub Window", padding=10, command=show_sub_window)
+    button.pack(padx=20, pady=20)
     win_root.mainloop()
