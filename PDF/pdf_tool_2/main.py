@@ -120,71 +120,74 @@ def main() -> None:
 
     # メインフレームの設定
 
-    frame = ttk.Frame(win_main, padding=20)
-    frame.grid(row=0, column=0)
+    frame_main = ttk.Frame(win_main, padding=10)
+    frame_main.grid(row=0, column=0)
 
     # 各ボタンの設定
 
     button_width: int = 46
     merge_btn: ttk.Button = ttk.Button(
-        master=frame,
+        master=frame_main,
         text="PDF ファイルを結合",
         width=button_width,
         command=on_merge_pdf,
         style="TButton",
-        padding=10,
     )
     merge_btn.grid(row=0, column=0, padx=5)
 
     split_btn = ttk.Button(
-        master=frame,
+        master=frame_main,
         text="PDF ファイルを分割",
         width=button_width,
         command=on_split_pdf,
         style="TButton",
-        padding=10,
     )
     split_btn.grid(row=1, column=0, padx=5)
 
     rotate_page_btn = ttk.Button(
-        master=frame,
+        master=frame_main,
         text="指定したページを回転",
         width=button_width,
         command=on_rotate_page_pdf,
         style="TButton",
-        padding=10,
     )
     rotate_page_btn.grid(row=2, column=0, padx=5)
 
     delete_page_btn = ttk.Button(
-        master=frame,
+        master=frame_main,
         text="指定したページを削除",
         width=button_width,
         command=on_delete_page_pdf,
         style="TButton",
-        padding=10,
     )
     delete_page_btn.grid(row=3, column=0, padx=5)
 
     insert_btn = ttk.Button(
-        master=frame,
+        master=frame_main,
         text="指定したページ位置へ別の PDF ファイルを挿入",
         width=button_width,
         command=on_insert_pdf,
         style="TButton",
-        padding=10,
     )
     insert_btn.grid(row=4, column=0, padx=5)
 
     extract_text_and_image_btn = ttk.Button(
-        master=frame,
+        master=frame_main,
         text="PDF ファイルからテキストと画像を抽出",
         width=button_width,
         command=on_extract_text_and_image_pdf,
         style="TButton",
-        padding=10,
     )
     extract_text_and_image_btn.grid(row=5, column=0, padx=5)
+
+    exit_btn = ttk.Button(
+        master=frame_main,
+        text="終了",
+        width=button_width,
+        command=on_exit,
+        style="TButton",
+    )
+    exit_btn.grid(row=5, column=0, padx=5)
 
     # メインループの開始
     win_main.mainloop()

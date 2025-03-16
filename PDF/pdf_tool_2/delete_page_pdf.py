@@ -26,6 +26,13 @@ def delete_page_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
         win_parent.focus_force
         return None
 
+    def cmd_back_to_menu() -> None:
+        """
+        メニューへ戻る
+        """
+        on_close()
+        return None
+
     def cmd_select_file() -> None:
         """
         ファイル選択ダイアログを表示して、選択したファイルのパスをテキストボックスに設定
@@ -79,53 +86,59 @@ def delete_page_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     win_me.protocol(name="WM_DELETE_WINDOW", func=on_close)  # ウィンドウが閉じられたときのコールバックを設定
     win_me.focus_force()
 
+    # フレーム
+
+    frame_main = ttk.Frame(master=win_me, padding=10)
+    frame_main.pack()
+
     # タイトル
 
-    lbl_title = ttk.Label(master=win_me, text="PDF ファイルの指定したページを削除", style="Title.TLabel")
-    lbl_title.pack()
+    btn_add = ttk.Button(master=frame_main, text="メニューへ戻る", style="Mini.TButton", command=cmd_back_to_menu)
+    btn_add.grid(row=0, column=0, padx=10, pady=5, sticky=tk.W)
 
-    # フレームの追加
+    lbl_title = ttk.Label(master=frame_main, text="PDF ファイルの指定したページを削除", style="Title.TLabel")
+    lbl_title.grid(row=0, column=1, columnspan=2, padx=5, pady=5)
 
-    frame = ttk.Frame(master=win_me, padding=10)
-    frame.pack()
+    lbl_dummy = ttk.Label(master=frame_main, text="", style="TLabel")
+    lbl_dummy.grid(row=0, column=3, padx=5, pady=5)
 
     # 削除するPDFファイル
 
-    lbl_target_file = ttk.Label(master=frame, text="削除するPDFファイル", style="TLabel")
-    lbl_target_file.grid(row=0, column=0, padx=5, pady=5, sticky=tk.W)
+    lbl_target_file = ttk.Label(master=frame_main, text="削除するPDFファイル", style="TLabel")
+    lbl_target_file.grid(row=1, column=0, padx=5, pady=5, sticky=tk.W)
 
-    ent_target_file = ttk.Entry(master=frame, width=80, style="TEntry")
-    ent_target_file.grid(row=0, column=1, columnspan=3, padx=10, pady=10)
+    ent_target_file = ttk.Entry(master=frame_main, width=90, style="TEntry")
+    ent_target_file.grid(row=1, column=1, columnspan=2, padx=10, pady=10, sticky=tk.W)
 
-    btn_target_file = ttk.Button(master=frame, text="PDF ファイルを選択", style="TButton", command=cmd_select_file)
-    btn_target_file.grid(row=0, column=4, padx=5, pady=5, sticky=tk.W)
+    btn_target_file = ttk.Button(master=frame_main, text="PDF ファイルを選択", style="TButton", command=cmd_select_file)
+    btn_target_file.grid(row=1, column=3, padx=5, pady=5, sticky=tk.W)
 
     # ページ番号
 
-    lbl_page_no_1 = ttk.Label(master=frame, text="削除するページ番号", style="TLabel")
-    lbl_page_no_1.grid(row=1, column=0, padx=5, pady=5, sticky=tk.W)
+    lbl_page_no_1 = ttk.Label(master=frame_main, text="削除するページ番号", style="TLabel")
+    lbl_page_no_1.grid(row=2, column=0, padx=5, pady=5, sticky=tk.W)
 
-    ent_page_no = ttk.Entry(master=frame, width=44, style="TEntry")
-    ent_page_no.grid(row=1, column=1, columnspan=2, padx=5, pady=5, sticky=tk.W)
+    ent_page_no = ttk.Entry(master=frame_main, width=60, style="TEntry")
+    ent_page_no.grid(row=2, column=1, padx=5, pady=5, sticky=tk.W)
 
-    lbl_page_no_2 = ttk.Label(master=frame, text="カンマ区切りで複数指定可", style="TLabel")
-    lbl_page_no_2.grid(row=1, column=3, padx=5, pady=5, sticky=tk.W)
+    lbl_page_no_2 = ttk.Label(master=frame_main, text="カンマ区切りで複数指定可", style="TLabel")
+    lbl_page_no_2.grid(row=2, column=2, padx=5, pady=5, sticky=tk.W)
 
-    # 保存先、削除ボタン
+    # 保存先
 
-    lbl_save_path = ttk.Label(master=frame, text="削除結果の保存場所", style="TLabel")
-    lbl_save_path.grid(row=2, column=0, padx=5, pady=5, sticky=tk.W)
+    lbl_save_path = ttk.Label(master=frame_main, text="削除結果の保存場所", style="TLabel")
+    lbl_save_path.grid(row=3, column=0, padx=5, pady=5, sticky=tk.W)
 
-    ent_save_path = ttk.Entry(master=frame, width=80, style="TEntry")
-    ent_save_path.grid(row=2, column=1, columnspan=3, padx=5, pady=5)
+    ent_save_path = ttk.Entry(master=frame_main, width=90, style="TEntry")
+    ent_save_path.grid(row=3, column=1, columnspan=2, padx=5, pady=5, sticky=tk.W)
 
-    btn_save_path = ttk.Button(master=frame, text="保存場所を選択", style="TButton", command=cmd_select_file)
-    btn_save_path.grid(row=2, column=4, padx=5, pady=5, sticky=tk.W)
+    btn_save_path = ttk.Button(master=frame_main, text="保存場所を選択", style="TButton", command=cmd_select_file)
+    btn_save_path.grid(row=3, column=3, padx=5, pady=5, sticky=tk.W)
 
     # 削除ボタン
 
-    btn_delete = ttk.Button(master=frame, text="指定したページを削除", style="TButton", command=cmd_delete_page)
-    btn_delete.grid(row=3, column=4, padx=5, pady=5, sticky=tk.W)
+    btn_delete = ttk.Button(master=frame_main, text="指定したページを削除", style="TButton", command=cmd_delete_page)
+    btn_delete.grid(row=4, column=3, padx=5, pady=5, sticky=tk.W)
 
     return win_me
 

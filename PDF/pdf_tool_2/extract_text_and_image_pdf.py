@@ -20,21 +20,39 @@ def extract_text_and_image_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
         win_parent.focus_force
         return None
 
+    def cmd_back_to_menu() -> None:
+        """
+        メニューへ戻る
+        """
+        on_close()
+        return None
+
     #
     # GUI: Tkinter.tk & Tkinter.ttk
     #
     # Toplevel ウィンドウの設定
 
     win_me = tk.Toplevel()
-    win_me.title(string="PDF ファイルからテキストと画像を抽出")
+    win_me.title(string="PDF ファイルの指定したページを削除")
     win_me.resizable(width=False, height=False)
     win_me.protocol(name="WM_DELETE_WINDOW", func=on_close)  # ウィンドウが閉じられたときのコールバックを設定
     win_me.focus_force()
 
+    # フレーム
+
+    frame_main = ttk.Frame(master=win_me, padding=10)
+    frame_main.pack()
+
     # タイトル
 
-    lbl_title = ttk.Label(master=win_me, text="PDF ファイルからテキストと画像を抽出", style="Title.TLabel")
-    lbl_title.pack()
+    btn_add = ttk.Button(master=frame_main, text="メニューへ戻る", style="Mini.TButton", command=cmd_back_to_menu)
+    btn_add.grid(row=0, column=0, padx=10, pady=5, sticky=tk.W)
+
+    lbl_title = ttk.Label(master=frame_main, text="PDF ファイルからテキストと画像を抽出", style="Title.TLabel")
+    lbl_title.grid(row=0, column=1, columnspan=2, padx=5, pady=5)
+
+    lbl_dummy = ttk.Label(master=frame_main, text="", style="TLabel")
+    lbl_dummy.grid(row=0, column=3, padx=5, pady=5)
 
     return win_me
 

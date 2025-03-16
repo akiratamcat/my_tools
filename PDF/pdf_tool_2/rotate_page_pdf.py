@@ -34,6 +34,13 @@ def rotate_page_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
         win_parent.focus_force
         return None
 
+    def cmd_back_to_menu() -> None:
+        """
+        メニューへ戻る
+        """
+        on_close()
+        return None
+
     def cmd_select_file() -> None:
         """
         ファイル選択ダイアログを表示して、選択したファイルのパスをテキストボックスに設定
@@ -107,33 +114,39 @@ def rotate_page_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     win_me.protocol(name="WM_DELETE_WINDOW", func=on_close)  # ウィンドウが閉じられたときのコールバックを設定
     win_me.focus_force()
 
+    # フレーム
+
+    frame_main = ttk.Frame(master=win_me, padding=10)
+    frame_main.pack()
+
     # タイトル
 
-    lbl_title = ttk.Label(master=win_me, text="PDF ファイルの指定したページを回転", style="Title.TLabel")
-    lbl_title.pack()
+    btn_add = ttk.Button(master=frame_main, text="メニューへ戻る", style="Mini.TButton", command=cmd_back_to_menu)
+    btn_add.grid(row=0, column=0, padx=10, pady=5, sticky=tk.W)
 
-    # フレームの追加
+    lbl_title = ttk.Label(master=frame_main, text="PDF ファイルの指定したページを回転", style="Title.TLabel")
+    lbl_title.grid(row=0, column=1, columnspan=2, padx=5, pady=5)
 
-    frame = ttk.Frame(master=win_me, padding=10)
-    frame.pack()
+    lbl_dummy = ttk.Label(master=frame_main, text="", style="TLabel")
+    lbl_dummy.grid(row=0, column=3, padx=5, pady=5)
 
     # 回転するPDFファイル
 
-    lbl_target_file = ttk.Label(master=frame, text="回転するPDFファイル", style="TLabel")
-    lbl_target_file.grid(row=0, column=0, padx=5, pady=5, sticky=tk.W)
+    lbl_target_file = ttk.Label(master=frame_main, text="回転するPDFファイル", style="TLabel")
+    lbl_target_file.grid(row=1, column=0, padx=5, pady=5, sticky=tk.W)
 
-    ent_target_file = ttk.Entry(master=frame, width=80, style="TEntry")
-    ent_target_file.grid(row=0, column=1, columnspan=3, padx=10, pady=10)
+    ent_target_file = ttk.Entry(master=frame_main, width=90, style="TEntry")
+    ent_target_file.grid(row=1, column=1, columnspan=2, padx=10, pady=10, sticky=tk.W)
 
-    btn_target_file = ttk.Button(master=frame, text="PDF ファイルを選択", style="TButton", command=cmd_select_file)
-    btn_target_file.grid(row=0, column=4, padx=5, pady=5, sticky=tk.W)
+    btn_target_file = ttk.Button(master=frame_main, text="PDF ファイルを選択", style="TButton", command=cmd_select_file)
+    btn_target_file.grid(row=1, column=3, padx=5, pady=5, sticky=tk.W)
 
     # 全ページを回転するかどうか
 
     var_rotate_all = tk.BooleanVar()
     var_rotate_all.set(value=False)
     chk_rotate_all_checkbutton = ttk.Checkbutton(
-        master=frame,
+        master=frame_main,
         text="全てのページを回転",
         variable=var_rotate_all,
         onvalue=True,
@@ -141,51 +154,51 @@ def rotate_page_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
         style="TCheckbutton",
         command=cmd_toggle_ent_page_no,
     )
-    chk_rotate_all_checkbutton.grid(row=2, column=0, columnspan=5, padx=5, pady=5, sticky=tk.W)
+    chk_rotate_all_checkbutton.grid(row=2, column=0, columnspan=4, padx=5, pady=5, sticky=tk.W)
 
     # ページ番号
 
-    lbl_page_no_1 = ttk.Label(master=frame, text="回転するページ番号", style="TLabel")
+    lbl_page_no_1 = ttk.Label(master=frame_main, text="回転するページ番号", style="TLabel")
     lbl_page_no_1.grid(row=3, column=0, padx=5, pady=5, sticky=tk.W)
 
-    ent_page_no = ttk.Entry(master=frame, width=44, style="TEntry")
-    ent_page_no.grid(row=3, column=1, columnspan=2, padx=5, pady=5, sticky=tk.W)
+    ent_page_no = ttk.Entry(master=frame_main, width=60, style="TEntry")
+    ent_page_no.grid(row=3, column=1, padx=5, pady=5, sticky=tk.W)
 
-    lbl_page_no_2 = ttk.Label(master=frame, text="カンマ区切りで複数指定可", style="TLabel")
-    lbl_page_no_2.grid(row=3, column=3, padx=5, pady=5, sticky=tk.W)
+    lbl_page_no_2 = ttk.Label(master=frame_main, text="カンマ区切りで複数指定可", style="TLabel")
+    lbl_page_no_2.grid(row=3, column=2, padx=5, pady=5, sticky=tk.W)
 
     # 回転方向を指定するコンボボックス
 
-    lbl_rotate_direction = ttk.Label(master=frame, text="回転方向", style="TLabel")
+    lbl_rotate_direction = ttk.Label(master=frame_main, text="回転方向", style="TLabel")
     lbl_rotate_direction.grid(row=4, column=0, padx=5, pady=5, sticky=tk.W)
 
     rotate_directions: List[str] = list(ROTATE_DICT.keys())
     var_rotate_direction = tk.StringVar(value=rotate_directions[0])
     cmb_rotate_direction = ttk.Combobox(
-        master=frame,
+        master=frame_main,
         textvariable=var_rotate_direction,
         values=rotate_directions,
         state="readonly",
         style="TCombobox",
         width=10,
     )
-    cmb_rotate_direction.grid(row=4, column=1, columnspan=3, padx=5, pady=5, sticky=tk.W)
+    cmb_rotate_direction.grid(row=4, column=1, padx=5, pady=5, sticky=tk.W)
 
     # 保存先、回転ボタン
 
-    lbl_save_path = ttk.Label(master=frame, text="回転結果の保存場所", style="TLabel")
+    lbl_save_path = ttk.Label(master=frame_main, text="回転結果の保存場所", style="TLabel")
     lbl_save_path.grid(row=5, column=0, padx=5, pady=5, sticky=tk.W)
 
-    ent_save_path = ttk.Entry(master=frame, width=80, style="TEntry")
-    ent_save_path.grid(row=5, column=1, columnspan=3, padx=5, pady=5)
+    ent_save_path = ttk.Entry(master=frame_main, width=90, style="TEntry")
+    ent_save_path.grid(row=5, column=1, columnspan=2, padx=5, pady=5, sticky=tk.W)
 
-    btn_save_path = ttk.Button(master=frame, text="保存場所を選択", style="TButton", command=cmd_select_file)
-    btn_save_path.grid(row=5, column=4, padx=5, pady=5, sticky=tk.W)
+    btn_save_path = ttk.Button(master=frame_main, text="保存場所を選択", style="TButton", command=cmd_select_file)
+    btn_save_path.grid(row=5, column=3, padx=5, pady=5, sticky=tk.W)
 
     # 回転ボタン
 
-    btn_rotate = ttk.Button(master=frame, text="指定したページを回転", style="TButton", command=cmd_rotate)
-    btn_rotate.grid(row=6, column=4, padx=5, pady=5, sticky=tk.W)
+    btn_rotate = ttk.Button(master=frame_main, text="指定したページを回転", style="TButton", command=cmd_rotate)
+    btn_rotate.grid(row=6, column=3, padx=5, pady=5, sticky=tk.W)
 
     return win_me
 
@@ -216,6 +229,6 @@ if __name__ == "__main__":
     style = ttk.Style()
     set_Style(s=style)
 
-    button = ttk.Button(master=win_root, text="Open Sub Window", padding=10, command=show_sub_window)
+    button = ttk.Button(master=win_root, text="Open Sub Window", command=show_sub_window)
     button.pack(padx=20, pady=20)
     win_root.mainloop()
