@@ -12,63 +12,6 @@ from typing import Literal
 from utility import mbox_err, mbox_info, set_Style
 
 
-def add_file(tree: Treeview) -> None:
-    """
-    ファイルダイアログを開いて PDF ファイルを選択し、ツリービューに追加する。
-    """
-    # 10個以を超えたファイルを追加できないようにする
-    if len(tree.get_children()) >= 10:
-        return
-    # ファイルダイアログを開いて PDF ファイルを選択
-    file_path: str = filedialog.askopenfilename(filetypes=[("PDF files", "*.pdf")])
-    if file_path:
-        file_name: str = os.path.normpath(path=file_path).split(sep=os.sep)[-1]
-        path_name: str = os.path.dirname(p=os.path.normpath(path=file_path))
-        tree.insert(parent="", index="end", values=(len(tree.get_children()) + 1, file_name, path_name))
-    return None
-
-
-def move_up(tree: Treeview) -> None:
-    """
-    選択されたアイテムを一つ上に移動する。
-    """
-    selected_item: tuple[str, ...] = tree.selection()
-    if selected_item:
-        index: int = tree.index(item=selected_item[0])
-        if index > 0:
-            tree.move(item=selected_item[0], parent="", index=index - 1)
-            update_order(tree=tree)
-    return None
-
-
-def move_down(tree: Treeview) -> None:
-    """
-    選択されたアイテムを一つ下に移動する。
-    """
-    selected_item: tuple[str, ...] = tree.selection()
-    if selected_item:
-        index: int = tree.index(item=selected_item[0])
-        if index < (len(tree.get_children()) - 1):
-            tree.move(item=selected_item[0], parent="", index=index + 1)
-            update_order(tree=tree)
-    return None
-
-
-def delete_item(tree: Treeview) -> None:
-    """
-    選択されたアイテムを削除する。
-    """
-    # 選択されたアイテムがない場合は何もしない
-    if len(tree.get_children()) <= 0:
-        return
-    # 選択されたアイテムを削除
-    selected_item: tuple[str, ...] = tree.selection()
-    if selected_item:
-        tree.delete(selected_item[0])
-        update_order(tree=tree)
-    return None
-
-
 def update_order(tree: Treeview) -> None:
     """
     ツリービュー内のアイテムの順序を更新する。
@@ -118,35 +61,61 @@ def merge_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
         """
         一覧へ PDF ファイルを追加
         """
-        add_file(tree=tree_pdf)
+        # 10個以を超えたファイルを追加できないようにする
+        if len(tree_pdf.get_children()) >= 10:
+            return
+        # ファイルダイアログを開いて PDF ファイルを選択
+        file_path: str = filedialog.askopenfilename(filetypes=[("PDF files", "*.pdf")])
+        if file_path:
+            file_name: str = os.path.normpath(path=file_path).split(sep=os.sep)[-1]
+            path_name: str = os.path.dirname(p=os.path.normpath(path=file_path))
+            tree_pdf.insert(parent="", index="end", values=(len(tree_pdf.get_children()) + 1, file_name, path_name))
         return None
 
     def cmd_move_up() -> None:
         """
         ↑：一覧で選択した行と、ひとつ上の行を入れ替える
         """
-        move_up(tree=tree_pdf)
+        selected_item: tuple[str, ...] = tree_pdf.selection()
+        if selected_item:
+            index: int = tree_pdf.index(item=selected_item[0])
+            if index > 0:
+                tree_pdf.move(item=selected_item[0], parent="", index=index - 1)
+                update_order(tree=tree_pdf)
         return None
 
     def cmd_move_down() -> None:
         """
         ↓：一覧で選択した行と、ひとつ下の行を入れ替える
         """
-        move_down(tree=tree_pdf)
+        selected_item: tuple[str, ...] = tree_pdf.selection()
+        if selected_item:
+            index: int = tree_pdf.index(item=selected_item[0])
+            if index < (len(tree_pdf.get_children()) - 1):
+                tree_pdf.move(item=selected_item[0], parent="", index=index + 1)
+                update_order(tree=tree_pdf)
         return None
 
     def cmd_delete_item() -> None:
         """
         一覧から PDF ファイルを削除
         """
-        delete_item(tree=tree_pdf)
+        # 選択されたアイテムがない場合は何もしない
+        if len(tree_pdf.get_children()) <= 0:
+            return
+        # 選択されたアイテムを削除
+        selected_item: tuple[str, ...] = tree_pdf.selection()
+        if selected_item:
+            tree_pdf.delete(selected_item[0])
+            update_order(tree=tree_pdf)
         return None
 
     def cmd_save_as() -> None:
         """
         ファイル保存ダイアログを開いて保存場所とファイル名を設定
         """
-        file_path: str = filedialog.asksaveasfilename(defaultextension=".pdf", filetypes=[("PDF files", "*.pdf")])
+        file_path: str = save_path.get() if save_path.get() else os.getcwd()
+        file_path = filedialog.asksaveasfilename(defaultextension=".pdf", filetypes=[("PDF files", "*.pdf")])
         if file_path:
             save_path.set(file_path)
         return None

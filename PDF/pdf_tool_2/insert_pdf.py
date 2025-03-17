@@ -53,6 +53,56 @@ def insert_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     lbl_dummy = ttk.Label(master=frame_main, text="", style="TLabel")
     lbl_dummy.grid(row=0, column=3, padx=5, pady=5)
 
+    # 挿入される側のPDFファイル
+
+    lbl_target_file = ttk.Label(master=frame_main, text="挿入される側のPDFファイル", style="TLabel")
+    lbl_target_file.grid(row=1, column=0, padx=5, pady=5, sticky=tk.W)
+
+    ent_target_file = ttk.Entry(master=frame_main, width=90, style="TEntry")
+    ent_target_file.grid(row=1, column=1, columnspan=2, padx=10, pady=10, sticky=tk.W)
+
+    btn_target_file = ttk.Button(
+        master=frame_main, text="PDF ファイルを選択", style="TButton", command=cmd_select_target_file
+    )
+    btn_target_file.grid(row=1, column=3, padx=5, pady=5, sticky=tk.W)
+
+    # 挿入するPDFファイル
+
+    lbl_insert_file = ttk.Label(master=frame_main, text="挿入するPDFファイル", style="TLabel")
+    lbl_insert_file.grid(row=2, column=0, padx=5, pady=5, sticky=tk.W)
+
+    ent_insert_file = ttk.Entry(master=frame_main, width=90, style="TEntry")
+    ent_insert_file.grid(row=2, column=1, columnspan=2, padx=10, pady=10, sticky=tk.W)
+
+    btn_insert_file = ttk.Button(
+        master=frame_main, text="PDF ファイルを選択", style="TButton", command=cmd_select_insert_file
+    )
+    btn_insert_file.grid(row=2, column=3, padx=5, pady=5, sticky=tk.W)
+
+    # 挿入位置のページ番号
+
+    lbl_page_no_1 = ttk.Label(master=frame_main, text="挿入位置のページ番号", style="TLabel")
+    lbl_page_no_1.grid(row=3, column=0, padx=5, pady=5, sticky=tk.W)
+
+    ent_page_no = ttk.Entry(master=frame_main, width=6, style="TEntry")
+    ent_page_no.grid(row=3, column=1, padx=5, pady=5, sticky=tk.W)
+
+    # 保存先
+
+    lbl_save_path = ttk.Label(master=frame_main, text="挿入結果の保存場所", style="TLabel")
+    lbl_save_path.grid(row=4, column=0, padx=5, pady=5, sticky=tk.W)
+
+    ent_save_path = ttk.Entry(master=frame_main, width=90, style="TEntry")
+    ent_save_path.grid(row=4, column=1, columnspan=2, padx=5, pady=5, sticky=tk.W)
+
+    btn_save_path = ttk.Button(master=frame_main, text="保存場所を選択", style="TButton", command=cmd_select_save_file)
+    btn_save_path.grid(row=4, column=3, padx=5, pady=5, sticky=tk.W)
+
+    # 分割ボタン
+
+    btn_insert = ttk.Button(master=frame_main, text="PDF ファイルを挿入", style="TButton", command=cmd_split)
+    btn_insert.grid(row=5, column=3, padx=5, pady=5, sticky=tk.W)
+
     return win_me
 
 

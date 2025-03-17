@@ -38,7 +38,7 @@ def split_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
         on_close()
         return None
 
-    def cmd_select_file() -> None:
+    def cmd_select_target_file() -> None:
         """
         ファイル選択ダイアログを表示して、選択したファイルのパスをテキストボックスに設定
         """
@@ -57,6 +57,17 @@ def split_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
             ent_page_no.config(state="disabled")
         else:
             ent_page_no.config(state="normal")
+        return None
+
+    def cmd_select_save_file() -> None:
+        """
+        フォルダ選択ダイアログを表示して、選択したフォルダのパスをテキストボックスに設定
+        """
+        save_path: str = ent_save_path.get() if ent_save_path.get() else "."
+        save_path = filedialog.askdirectory(initialdir=save_path)
+        if save_path:
+            ent_save_path.delete(first=0, last=tk.END)
+            ent_save_path.insert(index=0, string=save_path)
         return None
 
     def cmd_split() -> None:
@@ -130,7 +141,9 @@ def split_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     ent_target_file = ttk.Entry(master=frame_main, width=90, style="TEntry")
     ent_target_file.grid(row=1, column=1, columnspan=2, padx=10, pady=10, sticky=tk.W)
 
-    btn_target_file = ttk.Button(master=frame_main, text="PDF ファイルを選択", style="TButton", command=cmd_select_file)
+    btn_target_file = ttk.Button(
+        master=frame_main, text="PDF ファイルを選択", style="TButton", command=cmd_select_target_file
+    )
     btn_target_file.grid(row=1, column=3, padx=5, pady=5, sticky=tk.W)
 
     # 全ページを分割するかどうか
@@ -159,7 +172,7 @@ def split_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     lbl_page_no_2 = ttk.Label(master=frame_main, text="カンマ区切りで複数指定可", style="TLabel")
     lbl_page_no_2.grid(row=3, column=2, padx=5, pady=5, sticky=tk.W)
 
-    # 保存先、分割ボタン
+    # 保存先フォルダ
 
     lbl_save_path = ttk.Label(master=frame_main, text="分割結果の保存場所", style="TLabel")
     lbl_save_path.grid(row=4, column=0, padx=5, pady=5, sticky=tk.W)
@@ -167,7 +180,7 @@ def split_pdf_window(win_parent: tk.Tk) -> tk.Toplevel:
     ent_save_path = ttk.Entry(master=frame_main, width=90, style="TEntry")
     ent_save_path.grid(row=4, column=1, columnspan=2, padx=5, pady=5, sticky=tk.W)
 
-    btn_save_path = ttk.Button(master=frame_main, text="保存場所を選択", style="TButton", command=cmd_select_file)
+    btn_save_path = ttk.Button(master=frame_main, text="保存場所を選択", style="TButton", command=cmd_select_save_file)
     btn_save_path.grid(row=4, column=3, padx=5, pady=5, sticky=tk.W)
 
     # 分割ボタン
