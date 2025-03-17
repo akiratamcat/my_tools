@@ -1,7 +1,5 @@
 altgraph==0.17.4
 chardet==5.2.0
-cx_Freeze==7.2.10
-cx_Logging==3.2.1
 lief==0.16.3
 packaging==24.2
 pefile==2023.2.7
