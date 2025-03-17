@@ -125,7 +125,8 @@ def main() -> None:
 
     # 各ボタンの設定
 
-    button_width: int = 46
+    button_width: int = 40
+
     merge_btn: ttk.Button = ttk.Button(
         master=frame_main,
         text="PDF ファイルを結合",
@@ -133,8 +134,7 @@ def main() -> None:
         command=on_merge_pdf,
         style="TButton",
     )
-    merge_btn.grid(row=0, column=0, padx=5)
-
+    merge_btn.grid(row=0, column=0, padx=5, pady=3)
     split_btn = ttk.Button(
         master=frame_main,
         text="PDF ファイルを分割",
@@ -142,7 +142,7 @@ def main() -> None:
         command=on_split_pdf,
         style="TButton",
     )
-    split_btn.grid(row=1, column=0, padx=5)
+    split_btn.grid(row=1, column=0, padx=5, pady=3)
 
     rotate_page_btn = ttk.Button(
         master=frame_main,
@@ -151,7 +151,7 @@ def main() -> None:
         command=on_rotate_page_pdf,
         style="TButton",
     )
-    rotate_page_btn.grid(row=2, column=0, padx=5)
+    rotate_page_btn.grid(row=2, column=0, padx=5, pady=3)
 
     delete_page_btn = ttk.Button(
         master=frame_main,
@@ -160,7 +160,7 @@ def main() -> None:
         command=on_delete_page_pdf,
         style="TButton",
     )
-    delete_page_btn.grid(row=3, column=0, padx=5)
+    delete_page_btn.grid(row=3, column=0, padx=5, pady=3)
 
     insert_btn = ttk.Button(
         master=frame_main,
@@ -169,7 +169,7 @@ def main() -> None:
         command=on_insert_pdf,
         style="TButton",
     )
-    insert_btn.grid(row=4, column=0, padx=5)
+    insert_btn.grid(row=4, column=0, padx=5, pady=3)
 
     extract_text_and_image_btn = ttk.Button(
         master=frame_main,
@@ -178,7 +178,10 @@ def main() -> None:
         command=on_extract_text_and_image_pdf,
         style="TButton",
     )
-    extract_text_and_image_btn.grid(row=5, column=0, padx=5)
+    extract_text_and_image_btn.grid(row=5, column=0, padx=5, pady=3)
+
+    lbl_dummy = ttk.Label(master=frame_main, text="", style="TLabel")
+    lbl_dummy.grid(row=6, column=0, padx=5)
 
     exit_btn = ttk.Button(
         master=frame_main,
@@ -187,7 +190,7 @@ def main() -> None:
         command=on_exit,
         style="TButton",
     )
-    exit_btn.grid(row=5, column=0, padx=5)
+    exit_btn.grid(row=7, column=0, padx=5, pady=3)
 
     # メインループの開始
     win_main.mainloop()
