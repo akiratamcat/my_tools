@@ -13,9 +13,6 @@ pip install --upgrade pymupdf
 pip install --upgrade pytesseract
 pip install --upgrade TkEasyGUI
 
-pip install --upgrade cx_Freeze
-
-
 """
 
 import os
