@@ -15,11 +15,14 @@ def main() -> None:
     # クロージャ
     # -----------------------------------------------------------------
 
-    def start_button() -> None:
+    def on_start_btn() -> None:
         if command[0]:
             return
-        logger.debug(msg="start_button() が呼び出されました。")
+        logger.debug(msg="on_start_btn() が呼び出されました。")
+        start_btn.config(state="disabled")
+        stop_btn.config(state="normal")
         command[0] = True
+        func_list.clear()
         func_list.append(threading.Thread(target=thread_func_put, args=("func_put_1",)))
         func_list.append(threading.Thread(target=thread_func_put, args=("func_put_2",)))
         func_list.append(threading.Thread(target=thread_func_put, args=("func_put_3",)))
@@ -29,9 +32,15 @@ def main() -> None:
         for func in func_list:
             func.start()
 
-    def stop_button() -> None:
-        logger.debug(msg="stop_button() が呼び出されました。")
+    def on_stop_btn() -> None:
+        logger.debug(msg="on_stop_btn() が呼び出されました。")
+        start_btn.config(state="normal")
+        stop_btn.config(state="disabled")
         command[0] = False
+        for func in func_list:
+            func.join()
+        func_list.clear()
+        get_q()
 
     def thread_func_put(name: str) -> None:
         logger.debug(msg=f"thread_func_put({name}) が呼び出されました。")
@@ -49,12 +58,16 @@ def main() -> None:
     def thread_func_get() -> None:
         logger.debug(msg="thread_func_get() が呼び出されました。")
         while command[0]:
-            if queue_data.qsize() > 0:
-                while queue_data.qsize() > 0:
-                    (f_name, f_date, f_wait) = queue_data.get()
-                    result_table.insert(parent="", index="end", values=(f_name, f_date, f_wait, queue_data.qsize()))
-                result_table.yview_moveto(1.0)
+            get_q()
             sleep(1)
+
+    def get_q() -> None:
+        if queue_data.qsize() == 0:
+            return
+        while queue_data.qsize() > 0:
+            (f_name, f_date, f_wait) = queue_data.get()
+            result_table.insert(parent="", index="end", values=(f_name, f_date, f_wait, queue_data.qsize()))
+        result_table.yview_moveto(1.0)
 
     # -----------------------------------------------------------------
     # スレッド共有
@@ -116,8 +129,11 @@ def main() -> None:
         frame2: ttk.Frame = ttk.Frame(master=root)
         frame2.pack(padx=10, pady=5)
 
-        ttk.Button(master=frame2, text="開始", command=start_button).grid(row=1, column=0, pady=10, sticky="E")
-        ttk.Button(master=frame2, text="停止", command=stop_button).grid(row=1, column=1, pady=10, sticky="E")
+        start_btn: ttk.Button = ttk.Button(master=frame2, text="開始", command=on_start_btn)
+        start_btn.grid(row=1, column=0, pady=10, sticky="E")
+
+        stop_btn: ttk.Button = ttk.Button(master=frame2, text="停止", command=on_stop_btn)
+        stop_btn.grid(row=1, column=1, pady=10, sticky="E")
 
         logger.debug(msg="メインウィンドウを作成してイベントループを開始します。")
 
