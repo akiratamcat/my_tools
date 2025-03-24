@@ -42,9 +42,9 @@ def search_in_excel_file_new_type(
         results (List[Tuple[str, str, str, str, str, str]]): 検索結果を格納するリスト
         logger (Logger): logging.Logger
     """
-    logger.debug("search_in_excel_file_new_type()")
+    logger.debug(msg="search_in_excel_file_new_type()")
     logger.debug(
-        f" --> excel_file_path={excel_file_path}"
+        msg=f" --> excel_file_path={excel_file_path}"
         f" search_term={search_term}"
         f" case_sensitive={case_sensitive}"
         f" width_sensitive={width_sensitive}"
@@ -57,34 +57,34 @@ def search_in_excel_file_new_type(
         #
 
         msg: str = "対象ファイルの各シートの全てのセルを調べる"
-        logger.debug(msg)
+        logger.debug(msg=msg)
 
         # EXCEL ファイルを開く
         # excel_file.close だけでEXCELファイルをオープンに関係するリソースの開放が不十分なため
         # with ブロックを使いブロックを抜けるとリソースを完全に開放するようにした。
-        logger.debug(f"pd.ExcelFile({excel_file_path})")
-        with pd.ExcelFile(excel_file_path) as excel_file:  # pandas で開く
+        logger.debug(msg=f"pd.ExcelFile({excel_file_path})")
+        with pd.ExcelFile(path_or_buffer=excel_file_path) as excel_file:  # pandas で開く
             # シートごとに処理するループ
             for sheet_name in excel_file.sheet_names:
                 # シート名を表示
                 msg = f"ファイル: {os.path.basename(excel_file_path)} シート: {sheet_name}"
-                logger.debug(msg)
+                logger.debug(msg=msg)
                 progress_callback(msg)
                 # (pandas) シートから得たDataFrame内の全てのセルを検索
-                df: pd.DataFrame = excel_file.parse(sheet_name)
+                df: pd.DataFrame = excel_file.parse(sheet_name=sheet_name)
                 for row_index, row in df.iterrows():
-                    for col_index, cell in enumerate(row):
+                    for col_index, cell in enumerate(iterable=row):
                         # セルの値を取得
-                        cell_value: str = str(cell) if pd.notna(cell) else ""
+                        cell_value: str = str(object=cell) if pd.notna(cell) else ""
                         # セルが空なら loop continue
                         if len(cell_value) == 0:
                             continue
                         # セルの値を正規化
                         normalized_cell_value: str = normalize_string(
-                            cell_value,
-                            not case_sensitive,
-                            not width_sensitive,
-                            logger,
+                            s=cell_value,
+                            ignore_case=not case_sensitive,
+                            ignore_width=not width_sensitive,
+                            logger=logger,
                         )
                         # 検索語が含まれる場合は結果に追加
                         if search_term in normalized_cell_value:
@@ -99,11 +99,11 @@ def search_in_excel_file_new_type(
                             # 結果リストに追加
                             # ここはセル検索のため "セル"
                             msg = f"{cell_address} : {normalized_cell_value} に {search_term} が含まれています。"
-                            logger.debug(msg)
+                            logger.debug(msg=msg)
                             results.append(
                                 (
                                     os.path.basename(excel_file_path),
-                                    sheet_name,
+                                    str(object=sheet_name),
                                     cell_address,
                                     "セル",
                                     cell_value,
@@ -114,8 +114,8 @@ def search_in_excel_file_new_type(
             excel_file.close
         # with ブロックを使い、ブロックを抜けるとリソースを完全に開放
     except Exception as e:
-        msg = f"EXCEL 新形式 .xlsx, .xlsm ファイル grepエラー {os.path.basename(excel_file_path)}: {e}"
-        logger.error(msg)
+        msg = f"EXCEL 新形式 .xlsx, .xlsm ファイル grepエラー {os.path.basename(p=excel_file_path)}: {e}"
+        logger.error(msg=msg)
 
     #
     # shape_search != True ならば、ここで処理終了
@@ -124,7 +124,7 @@ def search_in_excel_file_new_type(
         return
 
     msg = "対象ファイルの図形内のテキストを調べる"
-    logger.debug(msg)
+    logger.debug(msg=msg)
 
     #
     # shape_search = True ならば、対象ファイルの各シートの図形（Shape）を調べる
@@ -169,7 +169,7 @@ def search_in_excel_file_new_type(
         pass
 
     except Exception as e:
-        msg = f"EXCEL 新形式 .xlsx, .xlsm ファイル grepエラー（図形） {os.path.basename(excel_file_path)}: {e}"
+        msg = f"EXCEL 新形式 .xlsx, .xlsm ファイル grepエラー（図形） {os.path.basename(p=excel_file_path)}: {e}"
         logger.error(msg)
 
     return

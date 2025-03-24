@@ -39,9 +39,9 @@ def search_in_excel_file_old_type(
         results (List[Tuple[str, str, str, str, str, str]]): 検索結果を格納するリスト
         logger (Logger): logging.Logger
     """
-    logger.debug("search_in_excel_file_old_type()")
+    logger.debug(msg="search_in_excel_file_old_type()")
     logger.debug(
-        f" --> excel_file_path={excel_file_path}"
+        msg=f" --> excel_file_path={excel_file_path}"
         f" search_term={search_term}"
         f" case_sensitive={case_sensitive}"
         f" width_sensitive={width_sensitive}"
@@ -53,33 +53,33 @@ def search_in_excel_file_old_type(
         #
 
         msg: str = "対象ファイルの各シートの全てのセルを調べる"
-        logger.debug(msg)
+        logger.debug(msg=msg)
 
         # EXCEL ファイルを xlrd で開く
-        logger.debug(f"xlrd.open_workbook({excel_file_path})")
-        with xlrd.open_workbook(excel_file_path) as workbook:
+        logger.debug(msg=f"xlrd.open_workbook({excel_file_path})")
+        with xlrd.open_workbook(filename=excel_file_path) as workbook:
             # シートごとに処理するループ
-            logger.debug(f"len(workbook.sheets())= {len(workbook.sheets())}")
+            logger.debug(msg=f"len(workbook.sheets())= {len(workbook.sheets())}")
             for sheet in workbook.sheets():
                 # シート名を表示
                 sheet_name: str = sheet.name
-                msg = f"ファイル: {os.path.basename(excel_file_path)} シート: {sheet_name}"
+                msg = f"ファイル: {os.path.basename(p=excel_file_path)} シート: {sheet_name}"
                 logger.debug(msg)
                 progress_callback(msg)
                 # シート内のすべてのセルを検索
                 for row_index in range(sheet.nrows):
                     for col_index in range(sheet.ncols):
                         # セルの値を取得
-                        cell_value: str = str(sheet.cell_value(row_index, col_index))
+                        cell_value: str = str(object=sheet.cell_value(row_index, col_index))
                         # セルが空なら loop continue
                         if len(cell_value) == 0:
                             continue
                         # セルから取得した値を検索条件に合わせて正規化
                         normalized_cell_value: str = normalize_string(
-                            cell_value,
-                            not case_sensitive,
-                            not width_sensitive,
-                            logger,
+                            s=cell_value,
+                            ignore_case=not case_sensitive,
+                            ignore_width=not width_sensitive,
+                            logger=logger,
                         )
                         # 検索語が含まれる場合は結果に追加
                         if search_term in normalized_cell_value:
@@ -94,7 +94,7 @@ def search_in_excel_file_old_type(
                             # 結果リストに追加
                             # 旧型式ファイルは図形検索に対応しないため、常に"セル"として追加
                             msg = f"{cell_address} : {normalized_cell_value} に {search_term} が含まれています。"
-                            logger.debug(msg)
+                            logger.debug(msg=msg)
                             results.append(
                                 (
                                     os.path.basename(excel_file_path),
@@ -109,6 +109,6 @@ def search_in_excel_file_old_type(
         # xlrd は close がない。with ブロックを使い、ブロックを抜けると自動的に閉じるようにした。
     except Exception as e:
         msg = f"EXCEL 旧型式.xlsファイル grepエラー {os.path.basename(excel_file_path)}: {e}"
-        logger.error(msg)
+        logger.error(msg=msg)
 
     return

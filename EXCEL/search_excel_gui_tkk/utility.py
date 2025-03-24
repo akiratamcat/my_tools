@@ -28,7 +28,7 @@ def normalize_string(
     Returns:
         str: 条件に従って正規化した結果の文字列
     """
-    logger.debug("normalize_string()")
+    logger.debug(msg="normalize_string()")
     msg: str = ""
     out_s: str = s
     try:
@@ -37,9 +37,9 @@ def normalize_string(
         if ignore_width:
             out_s = unicodedata.normalize("NFKC", s)  # 全角・半角を同一視
         msg = f"正規化 {s} -> {out_s}"
-        logger.debug(msg)
+        logger.debug(msg=msg)
     except Exception as e:
         msg = f"文字列 {s} 正規化中にエラーが発生しました: {e}"
-        logger.error(msg)
+        logger.error(msg=msg)
     #
     return out_s

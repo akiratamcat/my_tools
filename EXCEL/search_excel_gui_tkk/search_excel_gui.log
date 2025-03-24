@@ -1,0 +1,191 @@
+2025-03-24 11:04:09,547 : DEBUG : search_excel_gui.py - 起動しました。
+2025-03-24 11:04:09,547 : DEBUG : search_excel_gui.py - メインウィンドウを作成します。
+2025-03-24 11:04:09,697 : DEBUG : search_excel_gui.py - メインウィンドウを作成してイベントループを開始します。
+2025-03-24 11:04:13,893 : DEBUG : search_excel_gui.py - browse_folder()
+2025-03-24 11:04:32,998 : INFO : search_excel_gui.py - フォルダを選択しました。C:/FITEC_TEMP/Git_Repos_remote/my_tools/EXCEL/search_excel_gui_tkk/testdata
+2025-03-24 11:04:34,382 : DEBUG : search_excel_gui.py - start_search()
+2025-03-24 11:04:34,385 : DEBUG : search_excel_gui.py - folder_path または search_term が空
+2025-03-24 11:04:39,462 : DEBUG : search_excel_gui.py - start_search()
+2025-03-24 11:04:39,466 : INFO : search_excel_gui.py - 検索を開始しました。 folder_path=C:/FITEC_TEMP/Git_Repos_remote/my_tools/EXCEL/search_excel_gui_tkk/testdata search_term=b recursive=False  case_sensitive=True width_sensitive=True shape_search=False
+2025-03-24 11:04:39,466 : DEBUG : search_excel_gui.py - run_search()
+2025-03-24 11:04:39,466 : DEBUG : search_excel_gui.py - search_in_excel_files()
+2025-03-24 11:04:39,466 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,466 : DEBUG : utility.py - 正規化 b -> b
+2025-03-24 11:04:39,467 : DEBUG : search_excel_gui.py - フォルダ: C:/FITEC_TEMP/Git_Repos_remote/my_tools/EXCEL/search_excel_gui_tkk/testdata
+2025-03-24 11:04:39,467 : DEBUG : search_excel_gui.py - EXCEL 旧型式.xlsファイルが見つかりました C:\FITEC_TEMP\Git_Repos_remote\my_tools\EXCEL\search_excel_gui_tkk\testdata\testdata_01.xls
+2025-03-24 11:04:39,468 : DEBUG : excel_oldtype.py - search_in_excel_file_old_type()
+2025-03-24 11:04:39,468 : DEBUG : excel_oldtype.py -  --> excel_file_path=C:\FITEC_TEMP\Git_Repos_remote\my_tools\EXCEL\search_excel_gui_tkk\testdata\testdata_01.xls search_term=b case_sensitive=True width_sensitive=True
+2025-03-24 11:04:39,468 : DEBUG : excel_oldtype.py - 対象ファイルの各シートの全てのセルを調べる
+2025-03-24 11:04:39,468 : DEBUG : excel_oldtype.py - xlrd.open_workbook(C:\FITEC_TEMP\Git_Repos_remote\my_tools\EXCEL\search_excel_gui_tkk\testdata\testdata_01.xls)
+2025-03-24 11:04:39,479 : DEBUG : excel_oldtype.py - len(workbook.sheets())= 2
+2025-03-24 11:04:39,479 : DEBUG : excel_oldtype.py - ファイル: testdata_01.xls シート: Sheet1
+2025-03-24 11:04:39,481 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,481 : DEBUG : utility.py - 正規化 ABC -> ABC
+2025-03-24 11:04:39,481 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,481 : DEBUG : utility.py - 正規化 abc -> abc
+2025-03-24 11:04:39,481 : DEBUG : excel_oldtype.py - C:3 : abc に b が含まれています。
+2025-03-24 11:04:39,481 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,481 : DEBUG : utility.py - 正規化 AbC -> AbC
+2025-03-24 11:04:39,481 : DEBUG : excel_oldtype.py - D:4 : AbC に b が含まれています。
+2025-03-24 11:04:39,481 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,481 : DEBUG : utility.py - 正規化 ＡＢＣ -> ＡＢＣ
+2025-03-24 11:04:39,481 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,481 : DEBUG : utility.py - 正規化 ａｂｃ -> ａｂｃ
+2025-03-24 11:04:39,481 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,481 : DEBUG : utility.py - 正規化 ＡｂＣ -> ＡｂＣ
+2025-03-24 11:04:39,481 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,481 : DEBUG : utility.py - 正規化 ＡbＣ -> ＡbＣ
+2025-03-24 11:04:39,481 : DEBUG : excel_oldtype.py - H:8 : ＡbＣ に b が含まれています。
+2025-03-24 11:04:39,481 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,481 : DEBUG : utility.py - 正規化 いろは -> いろは
+2025-03-24 11:04:39,481 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,481 : DEBUG : utility.py - 正規化 ｲﾛﾊ -> ｲﾛﾊ
+2025-03-24 11:04:39,481 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,481 : DEBUG : utility.py - 正規化 イロハ -> イロハ
+2025-03-24 11:04:39,481 : DEBUG : excel_oldtype.py - ファイル: testdata_01.xls シート: Sheet2
+2025-03-24 11:04:39,482 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,482 : DEBUG : utility.py - 正規化 ABC -> ABC
+2025-03-24 11:04:39,482 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,482 : DEBUG : utility.py - 正規化 abc -> abc
+2025-03-24 11:04:39,482 : DEBUG : excel_oldtype.py - D:4 : abc に b が含まれています。
+2025-03-24 11:04:39,482 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,483 : DEBUG : utility.py - 正規化 AbC -> AbC
+2025-03-24 11:04:39,483 : DEBUG : excel_oldtype.py - E:5 : AbC に b が含まれています。
+2025-03-24 11:04:39,483 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,483 : DEBUG : utility.py - 正規化 ＡＢＣ -> ＡＢＣ
+2025-03-24 11:04:39,483 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,483 : DEBUG : utility.py - 正規化 ａｂｃ -> ａｂｃ
+2025-03-24 11:04:39,483 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,483 : DEBUG : utility.py - 正規化 ＡｂＣ -> ＡｂＣ
+2025-03-24 11:04:39,483 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,483 : DEBUG : utility.py - 正規化 ＡbＣ -> ＡbＣ
+2025-03-24 11:04:39,483 : DEBUG : excel_oldtype.py - I:9 : ＡbＣ に b が含まれています。
+2025-03-24 11:04:39,483 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,483 : DEBUG : utility.py - 正規化 いろは -> いろは
+2025-03-24 11:04:39,483 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,483 : DEBUG : utility.py - 正規化 ｲﾛﾊ -> ｲﾛﾊ
+2025-03-24 11:04:39,483 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,483 : DEBUG : utility.py - 正規化 イロハ -> イロハ
+2025-03-24 11:04:39,483 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,483 : DEBUG : utility.py - 正規化 123.0 -> 123.0
+2025-03-24 11:04:39,483 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,483 : DEBUG : utility.py - 正規化 １２３ -> １２３
+2025-03-24 11:04:39,483 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:39,483 : DEBUG : utility.py - 正規化 qq -> qq
+2025-03-24 11:04:39,483 : DEBUG : search_excel_gui.py - EXCEL 新形式 .xlsx, .xlsm ファイルが見つかりました C:\FITEC_TEMP\Git_Repos_remote\my_tools\EXCEL\search_excel_gui_tkk\testdata\testdata_01.xlsm
+2025-03-24 11:04:39,483 : DEBUG : excel_newtype.py - search_in_excel_file_new_type()
+2025-03-24 11:04:39,484 : DEBUG : excel_newtype.py -  --> excel_file_path=C:\FITEC_TEMP\Git_Repos_remote\my_tools\EXCEL\search_excel_gui_tkk\testdata\testdata_01.xlsm search_term=b case_sensitive=True width_sensitive=True shape_search=False
+2025-03-24 11:04:39,484 : DEBUG : excel_newtype.py - 対象ファイルの各シートの全てのセルを調べる
+2025-03-24 11:04:39,484 : DEBUG : excel_newtype.py - pd.ExcelFile(C:\FITEC_TEMP\Git_Repos_remote\my_tools\EXCEL\search_excel_gui_tkk\testdata\testdata_01.xlsm)
+2025-03-24 11:04:40,595 : DEBUG : excel_newtype.py - ファイル: testdata_01.xlsm シート: Sheet1
+2025-03-24 11:04:40,608 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,608 : DEBUG : utility.py - 正規化 ABC -> ABC
+2025-03-24 11:04:40,608 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,608 : DEBUG : utility.py - 正規化 abc -> abc
+2025-03-24 11:04:40,608 : DEBUG : excel_newtype.py - C:3 : abc に b が含まれています。
+2025-03-24 11:04:40,608 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,608 : DEBUG : utility.py - 正規化 AbC -> AbC
+2025-03-24 11:04:40,608 : DEBUG : excel_newtype.py - D:4 : AbC に b が含まれています。
+2025-03-24 11:04:40,608 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,608 : DEBUG : utility.py - 正規化 ＡＢＣ -> ＡＢＣ
+2025-03-24 11:04:40,609 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,609 : DEBUG : utility.py - 正規化 ａｂｃ -> ａｂｃ
+2025-03-24 11:04:40,609 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,609 : DEBUG : utility.py - 正規化 ＡｂＣ -> ＡｂＣ
+2025-03-24 11:04:40,609 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,609 : DEBUG : utility.py - 正規化 ＡbＣ -> ＡbＣ
+2025-03-24 11:04:40,609 : DEBUG : excel_newtype.py - H:8 : ＡbＣ に b が含まれています。
+2025-03-24 11:04:40,609 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,609 : DEBUG : utility.py - 正規化 いろは -> いろは
+2025-03-24 11:04:40,609 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,609 : DEBUG : utility.py - 正規化 ｲﾛﾊ -> ｲﾛﾊ
+2025-03-24 11:04:40,609 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,610 : DEBUG : utility.py - 正規化 イロハ -> イロハ
+2025-03-24 11:04:40,610 : DEBUG : excel_newtype.py - ファイル: testdata_01.xlsm シート: Sheet2
+2025-03-24 11:04:40,613 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,613 : DEBUG : utility.py - 正規化 ABC -> ABC
+2025-03-24 11:04:40,613 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,613 : DEBUG : utility.py - 正規化 abc -> abc
+2025-03-24 11:04:40,613 : DEBUG : excel_newtype.py - D:4 : abc に b が含まれています。
+2025-03-24 11:04:40,613 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,613 : DEBUG : utility.py - 正規化 AbC -> AbC
+2025-03-24 11:04:40,613 : DEBUG : excel_newtype.py - E:5 : AbC に b が含まれています。
+2025-03-24 11:04:40,613 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,613 : DEBUG : utility.py - 正規化 ＡＢＣ -> ＡＢＣ
+2025-03-24 11:04:40,613 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,613 : DEBUG : utility.py - 正規化 ａｂｃ -> ａｂｃ
+2025-03-24 11:04:40,614 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,614 : DEBUG : utility.py - 正規化 ＡｂＣ -> ＡｂＣ
+2025-03-24 11:04:40,614 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,614 : DEBUG : utility.py - 正規化 ＡbＣ -> ＡbＣ
+2025-03-24 11:04:40,614 : DEBUG : excel_newtype.py - I:9 : ＡbＣ に b が含まれています。
+2025-03-24 11:04:40,614 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,614 : DEBUG : utility.py - 正規化 いろは -> いろは
+2025-03-24 11:04:40,614 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,614 : DEBUG : utility.py - 正規化 ｲﾛﾊ -> ｲﾛﾊ
+2025-03-24 11:04:40,614 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,614 : DEBUG : utility.py - 正規化 イロハ -> イロハ
+2025-03-24 11:04:40,614 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,614 : DEBUG : utility.py - 正規化 123 -> 123
+2025-03-24 11:04:40,614 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,614 : DEBUG : utility.py - 正規化 １２３ -> １２３
+2025-03-24 11:04:40,614 : DEBUG : search_excel_gui.py - EXCEL 新形式 .xlsx, .xlsm ファイルが見つかりました C:\FITEC_TEMP\Git_Repos_remote\my_tools\EXCEL\search_excel_gui_tkk\testdata\testdata_01.xlsx
+2025-03-24 11:04:40,614 : DEBUG : excel_newtype.py - search_in_excel_file_new_type()
+2025-03-24 11:04:40,614 : DEBUG : excel_newtype.py -  --> excel_file_path=C:\FITEC_TEMP\Git_Repos_remote\my_tools\EXCEL\search_excel_gui_tkk\testdata\testdata_01.xlsx search_term=b case_sensitive=True width_sensitive=True shape_search=False
+2025-03-24 11:04:40,614 : DEBUG : excel_newtype.py - 対象ファイルの各シートの全てのセルを調べる
+2025-03-24 11:04:40,614 : DEBUG : excel_newtype.py - pd.ExcelFile(C:\FITEC_TEMP\Git_Repos_remote\my_tools\EXCEL\search_excel_gui_tkk\testdata\testdata_01.xlsx)
+2025-03-24 11:04:40,617 : DEBUG : excel_newtype.py - ファイル: testdata_01.xlsx シート: Sheet1
+2025-03-24 11:04:40,619 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,619 : DEBUG : utility.py - 正規化 ABC -> ABC
+2025-03-24 11:04:40,619 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,619 : DEBUG : utility.py - 正規化 abc -> abc
+2025-03-24 11:04:40,619 : DEBUG : excel_newtype.py - C:3 : abc に b が含まれています。
+2025-03-24 11:04:40,619 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,619 : DEBUG : utility.py - 正規化 AbC -> AbC
+2025-03-24 11:04:40,619 : DEBUG : excel_newtype.py - D:4 : AbC に b が含まれています。
+2025-03-24 11:04:40,619 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,619 : DEBUG : utility.py - 正規化 ＡＢＣ -> ＡＢＣ
+2025-03-24 11:04:40,619 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,619 : DEBUG : utility.py - 正規化 ａｂｃ -> ａｂｃ
+2025-03-24 11:04:40,620 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,620 : DEBUG : utility.py - 正規化 ＡｂＣ -> ＡｂＣ
+2025-03-24 11:04:40,620 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,620 : DEBUG : utility.py - 正規化 ＡbＣ -> ＡbＣ
+2025-03-24 11:04:40,620 : DEBUG : excel_newtype.py - H:8 : ＡbＣ に b が含まれています。
+2025-03-24 11:04:40,620 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,620 : DEBUG : utility.py - 正規化 いろは -> いろは
+2025-03-24 11:04:40,620 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,620 : DEBUG : utility.py - 正規化 ｲﾛﾊ -> ｲﾛﾊ
+2025-03-24 11:04:40,620 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,620 : DEBUG : utility.py - 正規化 イロハ -> イロハ
+2025-03-24 11:04:40,620 : DEBUG : excel_newtype.py - ファイル: testdata_01.xlsx シート: Sheet2
+2025-03-24 11:04:40,622 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,622 : DEBUG : utility.py - 正規化 ABC -> ABC
+2025-03-24 11:04:40,622 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,622 : DEBUG : utility.py - 正規化 abc -> abc
+2025-03-24 11:04:40,622 : DEBUG : excel_newtype.py - D:4 : abc に b が含まれています。
+2025-03-24 11:04:40,622 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,622 : DEBUG : utility.py - 正規化 AbC -> AbC
+2025-03-24 11:04:40,622 : DEBUG : excel_newtype.py - E:5 : AbC に b が含まれています。
+2025-03-24 11:04:40,622 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,622 : DEBUG : utility.py - 正規化 ＡＢＣ -> ＡＢＣ
+2025-03-24 11:04:40,623 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,623 : DEBUG : utility.py - 正規化 ａｂｃ -> ａｂｃ
+2025-03-24 11:04:40,623 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,623 : DEBUG : utility.py - 正規化 ＡｂＣ -> ＡｂＣ
+2025-03-24 11:04:40,624 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,624 : DEBUG : utility.py - 正規化 ＡbＣ -> ＡbＣ
+2025-03-24 11:04:40,624 : DEBUG : excel_newtype.py - I:9 : ＡbＣ に b が含まれています。
+2025-03-24 11:04:40,624 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,624 : DEBUG : utility.py - 正規化 いろは -> いろは
+2025-03-24 11:04:40,624 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,624 : DEBUG : utility.py - 正規化 ｲﾛﾊ -> ｲﾛﾊ
+2025-03-24 11:04:40,624 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,624 : DEBUG : utility.py - 正規化 イロハ -> イロハ
+2025-03-24 11:04:40,624 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,624 : DEBUG : utility.py - 正規化 123 -> 123
+2025-03-24 11:04:40,624 : DEBUG : utility.py - normalize_string()
+2025-03-24 11:04:40,624 : DEBUG : utility.py - 正規化 １２３ -> １２３
+2025-03-24 11:04:40,624 : DEBUG : search_excel_gui.py - 再帰的に検索しない。
+2025-03-24 11:04:40,624 : DEBUG : search_excel_gui.py - len(results) = [('testdata_01.xls', 'Sheet1', 'C:3', 'セル', 'abc', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xls'), ('testdata_01.xls', 'Sheet1', 'D:4', 'セル', 'AbC', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xls'), ('testdata_01.xls', 'Sheet1', 'H:8', 'セル', 'ＡbＣ', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xls'), ('testdata_01.xls', 'Sheet2', 'D:4', 'セル', 'abc', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xls'), ('testdata_01.xls', 'Sheet2', 'E:5', 'セル', 'AbC', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xls'), ('testdata_01.xls', 'Sheet2', 'I:9', 'セル', 'ＡbＣ', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xls'), ('testdata_01.xlsm', 'Sheet1', 'C:3', 'セル', 'abc', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xlsm'), ('testdata_01.xlsm', 'Sheet1', 'D:4', 'セル', 'AbC', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xlsm'), ('testdata_01.xlsm', 'Sheet1', 'H:8', 'セル', 'ＡbＣ', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xlsm'), ('testdata_01.xlsm', 'Sheet2', 'D:4', 'セル', 'abc', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xlsm'), ('testdata_01.xlsm', 'Sheet2', 'E:5', 'セル', 'AbC', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xlsm'), ('testdata_01.xlsm', 'Sheet2', 'I:9', 'セル', 'ＡbＣ', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xlsm'), ('testdata_01.xlsx', 'Sheet1', 'C:3', 'セル', 'abc', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xlsx'), ('testdata_01.xlsx', 'Sheet1', 'D:4', 'セル', 'AbC', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xlsx'), ('testdata_01.xlsx', 'Sheet1', 'H:8', 'セル', 'ＡbＣ', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xlsx'), ('testdata_01.xlsx', 'Sheet2', 'D:4', 'セル', 'abc', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xlsx'), ('testdata_01.xlsx', 'Sheet2', 'E:5', 'セル', 'AbC', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xlsx'), ('testdata_01.xlsx', 'Sheet2', 'I:9', 'セル', 'ＡbＣ', 'C:\\FITEC_TEMP\\Git_Repos_remote\\my_tools\\EXCEL\\search_excel_gui_tkk\\testdata\\testdata_01.xlsx')]
+2025-03-24 11:04:40,625 : INFO : search_excel_gui.py - 18 件の結果が見つかりました。
