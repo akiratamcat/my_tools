@@ -3,3 +3,4 @@ __pycache__
 .mypy_cache
 build
 dist
+sample/threading_02/threading_02.log
