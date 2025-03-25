@@ -1,9 +1,9 @@
-import datetime
 import os
-import random
-import threading
+from datetime import datetime, timedelta, timezone
 from logging import Formatter, Logger, getLogger, handlers
 from queue import Queue
+from random import random
+from threading import Thread
 from time import sleep
 from tkinter import Tk, ttk
 from typing import List
@@ -15,6 +15,14 @@ def main() -> None:
     # クロージャ
     # -----------------------------------------------------------------
 
+    def on_closing() -> None:
+        logger.debug(msg="on_closing() が呼び出されました。")
+        command[0] = False
+        for func in func_list:
+            func.join()
+        func_list.clear()
+        root.destroy()
+
     def on_start_btn() -> None:
         if command[0]:
             return
@@ -23,12 +31,12 @@ def main() -> None:
         stop_btn.config(state="normal")
         command[0] = True
         func_list.clear()
-        func_list.append(threading.Thread(target=thread_func_put, args=("func_put_1",)))
-        func_list.append(threading.Thread(target=thread_func_put, args=("func_put_2",)))
-        func_list.append(threading.Thread(target=thread_func_put, args=("func_put_3",)))
-        func_list.append(threading.Thread(target=thread_func_put, args=("func_put_4",)))
-        func_list.append(threading.Thread(target=thread_func_put, args=("func_put_5",)))
-        func_list.append(threading.Thread(target=thread_func_get))
+        func_list.append(Thread(target=thread_func_put, args=("func_put_1",)))
+        func_list.append(Thread(target=thread_func_put, args=("func_put_2",)))
+        func_list.append(Thread(target=thread_func_put, args=("func_put_3",)))
+        func_list.append(Thread(target=thread_func_put, args=("func_put_4",)))
+        func_list.append(Thread(target=thread_func_put, args=("func_put_5",)))
+        func_list.append(Thread(target=thread_func_get))
         for func in func_list:
             func.start()
 
@@ -40,41 +48,42 @@ def main() -> None:
         for func in func_list:
             func.join()
         func_list.clear()
-        get_q()
+        update_treeview()
 
     def thread_func_put(name: str) -> None:
         logger.debug(msg=f"thread_func_put({name}) が呼び出されました。")
         while command[0]:
-            sleep_time: float = random.random() * 5
+            sleep_time: float = round(number=random() * 5, ndigits=3)  # スレッドの動作頻度を乱数で遂次変えている
+            dt_now_jst_aware: datetime = datetime.now(tz=timezone(offset=timedelta(hours=9)))
+            dt_now_str: str = dt_now_jst_aware.strftime(format="%Y年%m月%d日 %H:%M:%S")
+            sleep_time_str: str = str(object=sleep_time)
             sleep(sleep_time)
-            dt_now_jst_aware: datetime.datetime = datetime.datetime.now(
-                tz=datetime.timezone(offset=datetime.timedelta(hours=9))
+            queue_data.put(item=(name, dt_now_str, sleep_time_str))
+            logger.debug(
+                msg=f"thread_func_put({name}) がキューへ put しました： 日時:{dt_now_str} sleep時間:{sleep_time_str}秒 "
             )
-            queue_data.put(
-                item=(name, dt_now_jst_aware.strftime(format="%Y年%m月%d日 %H:%M:%S"), str(object=sleep_time))
-            )
-            logger.debug(msg=f"thread_func_put({name}) がキューへ put しました")
 
     def thread_func_get() -> None:
         logger.debug(msg="thread_func_get() が呼び出されました。")
         while command[0]:
-            get_q()
-            sleep(1)
+            update_treeview()
+            sleep(2)  # treeview の更新間隔（秒）
 
-    def get_q() -> None:
+    def update_treeview() -> None:
+        logger.debug(msg="update_treeview() が呼び出されました。")
         if queue_data.qsize() == 0:
             return
         while queue_data.qsize() > 0:
             (f_name, f_date, f_wait) = queue_data.get()
             result_table.insert(parent="", index="end", values=(f_name, f_date, f_wait, queue_data.qsize()))
-        result_table.yview_moveto(1.0)
+        result_table.yview_moveto(fraction=1.0)
 
     # -----------------------------------------------------------------
     # スレッド共有
     # -----------------------------------------------------------------
 
     command: List[bool] = [False]
-    func_list: List[threading.Thread] = []
+    func_list: List[Thread] = []
     queue_data: Queue = Queue(maxsize=20)
 
     # -----------------------------------------------------------------
@@ -84,14 +93,14 @@ def main() -> None:
     logger: Logger = getLogger(name=__name__)
     logger.setLevel(level="DEBUG")
     rotating_handler = handlers.RotatingFileHandler(
-        os.path.splitext(os.path.abspath(__file__))[0] + ".log",
+        filename=os.path.splitext(os.path.abspath(path=__file__))[0] + ".log",
         mode="w",
         maxBytes=10 * 1024 * 1024,
         backupCount=3,
         encoding="utf-8",
     )
     format = Formatter(fmt="%(asctime)s : %(levelname)s : %(filename)s - %(message)s")
-    rotating_handler.setFormatter(format)
+    rotating_handler.setFormatter(fmt=format)
     logger.addHandler(hdlr=rotating_handler)
     logger.debug(msg="起動しました。")
 
@@ -100,15 +109,17 @@ def main() -> None:
     # -----------------------------------------------------------------
 
     try:
-        logger.debug("メインウィンドウを作成します。")
+        logger.debug(msg="メインウィンドウを作成します。")
 
         root: Tk = Tk()
-        root.title("Trhreding sample")
+        root.title(string="Trhreding sample")
+        root.protocol(name="WM_DELETE_WINDOW", func=on_closing)
 
         frame1: ttk.Frame = ttk.Frame(master=root)
         frame1.pack(padx=10, pady=5)
 
         columns_list: List[List] = [
+            # カラム名, 幅, ストレッチ
             ["thread name", 100, False],
             ["put date", 160, False],
             ["wait time", 80, False],
