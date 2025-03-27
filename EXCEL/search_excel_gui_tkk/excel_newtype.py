@@ -5,7 +5,8 @@ EXCEL 新形式 (.xlsx, .xlsm) ファイル用処理
 -----------------------------------------------------------------------
 
 python.exe -m pip install --upgrade pip
-pip install --upgrade openpylx
+
+pip install --upgrade openpyxl
 pip install --upgrade pandas
 
 """

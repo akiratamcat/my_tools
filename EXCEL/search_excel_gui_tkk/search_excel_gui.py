@@ -7,12 +7,6 @@ EXCELファイルに grep する GUI ツール
 
 python.exe -m pip install --upgrade pip
 
-pip install xlrd==1.2.0
-pip install --upgrade openpyxl
-pip install --upgrade pandas
-
-pip install --upgrade cx_Freeze
-
 """
 
 import argparse
