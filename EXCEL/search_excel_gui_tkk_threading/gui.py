@@ -1,119 +1,28 @@
 """
 -----------------------------------------------------------------------
 EXCELファイルに grep する GUI ツール
+
+
 -----------------------------------------------------------------------
 
-### pip ###
-
-python.exe -m pip install --upgrade pip
+TODO 修正途中。頑張る
 
 """
 
-import argparse
 import csv
-import os
 import subprocess
-from logging import Formatter, Logger, getLogger, handlers
+from logging import Logger
 from tkinter import (
     BooleanVar,
     Menu,
     Tk,
     filedialog,
-    messagebox,
     ttk,
 )
 from typing import Any, List, Tuple
 
-from excel_newtype import search_in_excel_file_new_type
-from excel_oldtype import search_in_excel_file_old_type
-from utility import normalize_string
-
-
-# EXCELファイル内を検索する関数
-def search_files(
-    folder_path: str,
-    search_term: str,
-    recursive: bool,
-    case_sensitive: bool,
-    width_sensitive: bool,
-    shape_search: bool,
-    progress_callback: Any,
-    logger: Logger,
-) -> List[Tuple[str, str, str, str, str, str]]:
-    """指定されたパスから EXCEL ファイルを探して、指定された検索語を含むセルを検索し、結果をリストで返す関数
-
-    Args:
-        folder_path (str): EXCELファイルを検索する起点となるフォルダのパス
-        search_term (str): 検索したい語句
-        recursive (bool): folder_path 以下を再帰的に検索するか否か
-        case_sensitive (bool): 大文字/小文字を同一視するか否か
-        width_sensitive (bool): 全角/半角を同一視するか否か
-        shape_search (bool): 図形内のテキストも検索するか否か（但し 新形式 .xlsx, .xlsm ファイルのみ）
-        progress_callback (Any): 進捗を更新するためのコールバック関数
-        logger (Logger): logging.Logger
-
-    Returns:
-        List[Tuple[str, str, str, str, str]]: 検索結果をメインウィンドウのテーブル構造に合わせたリストで返す
-    """
-
-    logger.debug(msg="search_in_excel_files()")
-
-    # 検索条件に従って検索語句を正規化
-    normalized_search_term: str = normalize_string(
-        s=search_term,
-        ignore_case=not case_sensitive,
-        ignore_width=not width_sensitive,
-        logger=logger,
-    )
-
-    # 検索結果を格納するリストを初期化
-    results: List[Tuple[str, str, str, str, str, str]] = []
-
-    # 指定したフォルダ内のすべてのファイルを取得
-    for root, dirs, files in os.walk(folder_path):
-        msg: str = f"フォルダ: {root}"
-        logger.debug(msg)
-        progress_callback(msg)
-        # ファイルごとに処理するループ
-        for filename in files:
-            if filename.endswith((".xlsx", ".xlsm", ".xls")):
-                # ファイルのパスを組み立て
-                file_path: str = os.path.join(root, filename).replace("/", os.sep)
-
-                if filename.endswith(".xls"):
-                    # EXCEL 旧型式.xlsファイル対応
-                    logger.debug(msg=f"EXCEL 旧型式.xlsファイルが見つかりました {file_path}")
-                    search_in_excel_file_old_type(
-                        excel_file_path=file_path,
-                        search_term=normalized_search_term,
-                        case_sensitive=case_sensitive,
-                        width_sensitive=width_sensitive,
-                        progress_callback=progress_callback,
-                        results=results,
-                        logger=logger,
-                    )
-                elif filename.endswith(".xlsx") or filename.endswith(".xlsm"):
-                    # EXCEL 新形式 .xlsx, .xlsm ファイル対応
-                    logger.debug(msg=f"EXCEL 新形式 .xlsx, .xlsm ファイルが見つかりました {file_path}")
-                    search_in_excel_file_new_type(
-                        excel_file_path=file_path,
-                        search_term=normalized_search_term,
-                        case_sensitive=case_sensitive,
-                        width_sensitive=width_sensitive,
-                        shape_search=shape_search,
-                        progress_callback=progress_callback,
-                        results=results,
-                        logger=logger,
-                    )
-                else:
-                    pass  # 処理対象のファイルではない
-
-        # 再帰的に検索しない場合は、フォルダ内のファイルをすべて検索したら終了
-        if not recursive:
-            logger.debug(msg="再帰的に検索しない。")
-            break
-
-    return results
+import utility
+from search_files import search_files
 
 
 # 検索を実行する関数
@@ -127,8 +36,8 @@ def run_search(
     progress_callback: Any,
     logger: Logger,
 ) -> List[Tuple[str, str, str, str, str, str]]:
-    """EXCELファイル内を検索して、結果をリストで返す関数
-
+    """
+    EXCELファイル内を検索して、結果をリストで返す関数
     Args:
         folder_path (str): EXCELファイルを検索する起点となるフォルダのパス
         search_term (str): 検索したい語句
@@ -138,7 +47,6 @@ def run_search(
         shape_search (bool): 図形内のテキストも検索するか否か（但し 新形式 .xlsx, .xlsm ファイルのみ）
         progress_callback (Any): 進捗を更新するためのコールバック関数
         logger (Logger): logging.Logger
-
     Returns:
         List[Tuple[str, str, str, str, str]]: 検索結果をメインウィンドウのテービル構造に合わせたリストで返す
     """
@@ -158,52 +66,25 @@ def run_search(
     except Exception as e:
         msg: str = f"検索中にエラーが発生しました: {e}"
         logger.error(msg=msg)
-        messagebox.showerror(title="エラー", message=msg)
+        utility.mbox_err(message=msg)
         return []
 
 
-# メイン画面とイベントループ処理
-def main() -> None:
-    """メイン画面とイベントループ処理
-
+def gui_main(logger: Logger) -> None:
+    """
+    メイン画面とイベントループ処理
     Args:
         None
-
     Returns:
         None
     """
-    #
-    # 起動引数の解析
-    #
-    parser = argparse.ArgumentParser(description="Excel grepツール")
-    parser.add_argument("--debug", action="store_true", help="デバッグモードを有効にする")
-    args: argparse.Namespace = parser.parse_args()
 
-    #
-    # ロガーの初期化
-    #
-    logger: Logger = getLogger(name=__name__)
-    logger.setLevel(level="DEBUG" if args.debug else "INFO")
-    logger.setLevel(level="DEBUG")  # 開発中はログレベルを DEBUG に上書き設定
-    rotating_handler = handlers.RotatingFileHandler(
-        os.path.splitext(os.path.abspath(__file__))[0] + ".log",
-        mode="w",
-        maxBytes=10 * 1024 * 1024,
-        backupCount=3,
-        encoding="utf-8",
-    )
-    format = Formatter(fmt="%(asctime)s : %(levelname)s : %(filename)s - %(message)s")
-    rotating_handler.setFormatter(format)
-    logger.addHandler(hdlr=rotating_handler)
-    logger.debug(msg="起動しました。")
-
-    # フォルダ選択ダイアログを表示する関数
+    # -----------------------------------------------------------------
     def browse_folder() -> None:
-        """フォルダ選択ダイアログを表示する関数
-
+        """
+        フォルダ選択ダイアログを表示する関数
         Args:
             None
-
         Returns:
             None
         """
@@ -216,26 +97,24 @@ def main() -> None:
         else:
             logger.info(msg="フォルダ選択をキャンセルしました。")
 
-    # ステータスバーのメッセージを更新する関数
+    # -----------------------------------------------------------------
     def update_status(message: str) -> None:
-        """ステータスバーのメッセージを更新する関数
-
+        """
+        ステータスバーのメッセージを更新する関数
         Args:
             message (str): 更新するメッセージ
-
         Returns:
             None
         """
         status_bar.config(text=f"  {message}")
         root.update_idletasks()
 
-    # 検索を開始する関数
+    # -----------------------------------------------------------------
     def start_search() -> None:
-        """検索を開始する関数
-
+        """
+        検索を開始する関数
         Args:
             None
-
         Returns:
             None
         """
@@ -247,7 +126,7 @@ def main() -> None:
         # folder_path または search_term が空の場合は検索を実行しない
         if not folder_path or not search_term:
             logger.debug(msg="folder_path または search_term が空")
-            messagebox.showwarning(title="警告", message="検索フォルダと検索語を入力してください。")
+            utility.mbox_warning(message="検索フォルダと検索語を入力してください。")
             return
 
         # 検索条件を取得
@@ -289,19 +168,19 @@ def main() -> None:
             msg: str = "該当するEXCELファイルは見つかりませんでした。"
             logger.info(msg=msg)
             update_status(message=msg)
-            messagebox.showinfo(title="情報", message=msg)
+            utility.mbox_info(message=msg)
         else:
             msg = f"{len(results)} 件の結果が見つかりました。"
             logger.info(msg=msg)
             update_status(message=msg + " 行を選択してダブルクリックするとEXCELファイルを開く事が出来ます。")
-            messagebox.showinfo(title="情報", message=msg)
+            utility.mbox_info(message=msg)
 
-    # 検索結果 treeview をCSVファイルで保存する関数
+    # -----------------------------------------------------------------
     def save_csv_file() -> None:
-        """検索結果 treeview をCSVファイルで保存する関数
+        """
+        検索結果 treeview をCSVファイルで保存する関数
         Args:
             None
-
         Returns:
             None
         """
@@ -321,9 +200,7 @@ def main() -> None:
                 logger.debug(msg="ファイル保存ダイアログを表示してキャンセルされました。")
                 return
 
-            logger.debug(
-                msg=f"CSVファイルに保存します。: {file_path}",
-            )
+            logger.debug(msg=f"CSVファイルに保存します。: {file_path}")
             # CSVファイルに書き込む
             with open(
                 file=file_path, mode="w", newline="", encoding="shift_jis"
@@ -339,15 +216,16 @@ def main() -> None:
             msg: str = "CSVファイルに保存しました。"
             logger.info(msg=msg + f" : {file_path}")
             update_status(message=msg + f" : {file_path}")
-            messagebox.showinfo(title="情報", message=msg)
+            utility.mbox_info(message=msg)
         except Exception as e:
             msg = f"CSVファイルの保存中にエラーが発生しました: {e}"
             logger.error(msg=msg)
-            messagebox.showerror(title="エラー", message=msg)
+            utility.mbox_err(message=msg)
 
-    # 一覧で選択されダブルクリックされた行のEXCELファイルを開く関数
+    # -----------------------------------------------------------------
     def open_excel_file(event: Any) -> None:
-        """一覧で選択されダブルクリックされた行のEXCELファイルを開く関数
+        """
+        一覧で選択されダブルクリックされた行のEXCELファイルを開く関数
 
         Args:
             event (Any): イベントオブジェクト
@@ -367,11 +245,11 @@ def main() -> None:
         except Exception as e:
             msg = f"EXCELファイルを開く際にエラーが発生しました: {e}"
             logger.error(msg=msg)
-            messagebox.showerror(title="エラー", message=msg)
+            utility.mbox_err(message=msg)
 
-    #
+    # -----------------------------------------------------------------
     # GUI 組み立て (Tkinter.tk & ttk)
-    #
+    # -----------------------------------------------------------------
 
     try:
         logger.debug("メインウィンドウを作成します。")
@@ -459,13 +337,10 @@ def main() -> None:
         # メインウィンドウのイベントループ
         root.mainloop()
 
+        return
+
     except Exception as e:
         msg: str = f"メインウィンドウの作成中にエラーが発生しました: {e}"
         logger.error(msg=msg)
-        messagebox.showerror(title="エラー", message=msg)
+        utility.mbox_err(message=msg)
         return
-
-
-# お約束の main() 関数
-if __name__ == "__main__":
-    main()

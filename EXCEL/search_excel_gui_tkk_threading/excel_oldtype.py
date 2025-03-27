@@ -1,11 +1,10 @@
 """
 -----------------------------------------------------------------------
-excel_oldtype.py
-EXCEL 旧型式(.xls)ファイル 用処理
+EXCEL 旧型式(.xls)ファイル のフルパスをキューで
+受け取り、ファイル内を検索して、結果をキューで返す。
 -----------------------------------------------------------------------
 
-python.exe -m pip install --upgrade pip
-pip install xlrd==1.2.0
+TODO 修正途中。頑張る
 
 """
 
@@ -15,7 +14,7 @@ from typing import Any, List, Tuple
 
 import xlrd  # xlrd 1.2.0
 
-from utility import normalize_string
+import utility
 
 
 # EXCEL 旧型式(.xls)ファイル をフルパスで受けて、そのファイル内を検索する
@@ -75,11 +74,10 @@ def search_in_excel_file_old_type(
                         if len(cell_value) == 0:
                             continue
                         # セルから取得した値を検索条件に合わせて正規化
-                        normalized_cell_value: str = normalize_string(
+                        normalized_cell_value: str = utility.normalize_string(
                             s=cell_value,
                             ignore_case=not case_sensitive,
                             ignore_width=not width_sensitive,
-                            logger=logger,
                         )
                         # 検索語が含まれる場合は結果に追加
                         if search_term in normalized_cell_value:

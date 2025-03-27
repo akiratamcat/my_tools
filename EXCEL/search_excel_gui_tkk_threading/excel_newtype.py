@@ -1,13 +1,10 @@
 """
 -----------------------------------------------------------------------
-excel_newtype.py
-EXCEL 新形式 (.xlsx, .xlsm) ファイル用処理
+EXCEL 新形式 (.xlsx, .xlsm) ファイルのフルパスをキューで
+受け取り、ファイル内を検索して、結果をキューで返す。
 -----------------------------------------------------------------------
 
-python.exe -m pip install --upgrade pip
-
-pip install --upgrade openpyxl
-pip install --upgrade pandas
+TODO 修正途中。頑張る
 
 """
 
@@ -17,7 +14,7 @@ from typing import Any, List, Tuple
 
 import pandas as pd
 
-from utility import normalize_string
+import utility
 
 
 # EXCEL 新形式 (.xlsx, .xlsm) ファイルをフルパスで受けて、そのファイル内を検索する
@@ -81,11 +78,10 @@ def search_in_excel_file_new_type(
                         if len(cell_value) == 0:
                             continue
                         # セルの値を正規化
-                        normalized_cell_value: str = normalize_string(
+                        normalized_cell_value: str = utility.normalize_string(
                             s=cell_value,
                             ignore_case=not case_sensitive,
                             ignore_width=not width_sensitive,
-                            logger=logger,
                         )
                         # 検索語が含まれる場合は結果に追加
                         if search_term in normalized_cell_value:
