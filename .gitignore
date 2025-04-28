@@ -4,3 +4,4 @@ __pycache__
 build
 dist
 sample/threading_02/threading_02.log
+alert_tu60.log
