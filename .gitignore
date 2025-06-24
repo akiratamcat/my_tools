@@ -6,3 +6,4 @@ dist
 sample/threading_02/threading_02.log
 alert_tu60.log
 /CSV/count_CSV_FieldValue/.vscode
+/CSV/count_CSV_FieldValue/count_CSV_FieldValue.spec
