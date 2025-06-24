@@ -6,7 +6,25 @@ from typing import Dict, Tuple
 
 
 def log_message(log_file: str, message: str) -> None:
-    """ログファイルにメッセージを書き込む"""
+    """ログファイルにタイムスタンプ付きメッセージを書き込む
+
+    Args:
+        log_file (str): ログファイルのパス
+        message (str): 書き込むメッセージ
+
+    Returns:
+        None
+
+    Raises:
+        OSError: ログファイルの書き込み時にファイル操作エラーが発生した場合
+        IOError: ログファイルの書き込み時にI/Oエラーが発生した場合
+        Exception: その他の予期しないエラーが発生した場合
+
+    Note:
+        - メッセージは "YYYY-MM-DD HH:MM:SS - メッセージ" の形式で記録される
+        - ファイルエンコーディングはcp932を使用
+        - エラー発生時は標準エラー出力にエラーメッセージを出力
+    """
     try:
         timestamp: str = datetime.now().strftime(format="%Y-%m-%d %H:%M:%S")
         with open(file=log_file, mode="a", encoding="cp932") as log:
@@ -23,12 +41,31 @@ def count_values_in_csv(
 ) -> Tuple[Dict[str, int], list[str], bool, int]:
     """CSVファイル内の各フィールドの値を持つフィールドの個数をカウントする
 
-    Args:
-        file_path (str): CSVファイルのパス
-        log_file (str): ログファイルのパス
-        field_size_limit (int): フィールドサイズの制限
+    CSVファイルを読み込み、各フィールドに値が存在する行の数をカウントします。
+    ヘッダ行を除いたデータ行数も同時に取得します。
 
-    Returns:        Tuple[Dict[str, int], list[str], bool, int]: フィールドのカウント、フィールド名のリスト、データが存在するかのフラグ、データ行数
+    Args:
+        file_path (str): 処理対象のCSVファイルのパス
+        log_file (str): ログファイルのパス
+        field_size_limit (int): CSVフィールドサイズの制限値（バイト）
+
+    Returns:
+        Tuple[Dict[str, int], list[str], bool, int]: 以下の要素を含むタプル
+            - Dict[str, int]: 各フィールド名と値が存在する行数の辞書
+            - list[str]: CSVファイルのフィールド名リスト（ヘッダ順）
+            - bool: データが存在するかのフラグ（True: データあり, False: ヘッダのみ）
+            - int: データ行数（ヘッダを除く総行数）
+
+    Raises:
+        FileNotFoundError: 指定されたCSVファイルが存在しない場合
+        OSError: ファイルの読み込みやサイズ取得に失敗した場合
+        csv.Error: CSV形式エラーが発生した場合
+        Exception: その他の予期しないエラーが発生した場合
+
+    Note:
+        - ファイルエンコーディングはcp932を使用
+        - 空のセルは値なしとして扱われる
+        - エラー発生時はログファイルに記録される
     """
     field_count: Dict[str, int] = {}
     fieldnames: list[str] = []
@@ -81,15 +118,33 @@ def write_counts_to_file(
     data_row_count: int,
     log_file: str,
 ) -> None:
-    """カウント結果をテキストファイルに書き込む
+    """カウント結果を個別のテキストファイルに書き込む
+
+    CSVファイル毎にカウント結果をテキストファイルに出力します。
+    ファイル名、データ行数、各フィールドのカウント結果が含まれます。
 
     Args:
-        base_name (str): 出力ファイルのベース名
-        counts (Dict[str, int]): 各フィールドのカウント
-        fieldnames (list): フィールド名のリスト
+        base_name (str): 出力ファイルのベース名（拡張子なし）
+        counts (Dict[str, int]): 各フィールド名と値が存在する行数の辞書
+        fieldnames (list[str]): CSVファイルのフィールド名リスト（ヘッダ順）
         csv_file_name (str): 処理対象のCSVファイル名
         has_data (bool): データが存在するかのフラグ
-        data_row_count (int): データ行数（ヘッダを除く）        log_file (str): ログファイルのパス
+        data_row_count (int): データ行数（ヘッダを除く）
+        log_file (str): ログファイルのパス
+
+    Returns:
+        None
+
+    Raises:
+        OSError: ファイル作成や書き込み時にファイル操作エラーが発生した場合
+        IOError: ファイル書き込み時にI/Oエラーが発生した場合
+        Exception: その他の予期しないエラーが発生した場合
+
+    Note:
+        - 出力ファイル名は "{base_name}.txt" 形式
+        - ファイルエンコーディングはcp932を使用
+        - フィールドはCSVのヘッダ順で出力される
+        - エラー発生時はログファイルに記録される
     """
     output_file: str = f"{base_name}.txt"
     try:
@@ -115,21 +170,44 @@ def write_summary_to_file(
     log_file: str,
     summary_file: str,
 ) -> None:
-    """全てのカウント結果をまとめて1つのファイルに書き込む
+    """全てのカウント結果をまとめて1つのCSVファイルに書き込む
+
+    複数のCSVファイルの処理結果を統合し、一つのCSVファイルに出力します。
+    ヘッダ行を含む表形式で、各CSVファイルのフィールド毎の結果が記録されます。
 
     Args:
         summary_data (Dict[str, Dict[str, int]]): 各CSVファイルのカウント結果
+            キー: CSVファイル名, 値: フィールド名とカウントの辞書
         fieldnames_data (Dict[str, list[str]]): 各CSVファイルのフィールド名リスト
+            キー: CSVファイル名, 値: フィールド名のリスト（ヘッダ順）
         data_row_counts (Dict[str, int]): 各CSVファイルのデータ行数
-        log_file (str): ログファイルのパス        summary_file (str): まとめた結果を出力するファイル名
+            キー: CSVファイル名, 値: データ行数（ヘッダを除く）
+        log_file (str): ログファイルのパス
+        summary_file (str): まとめた結果を出力するファイル名
+
+    Returns:
+        None
+
+    Raises:
+        OSError: ファイル作成や書き込み時にファイル操作エラーが発生した場合
+        IOError: ファイル書き込み時にI/Oエラーが発生した場合
+        Exception: その他の予期しないエラーが発生した場合
+
+    Note:
+        - 出力形式: "CSVファイル名,データ総行数,項目名,項目の値の個数"
+        - ファイルエンコーディングはcp932を使用
+        - フィールドはCSVのヘッダ順で出力される
+        - ヘッダ行が自動的に追加される
+        - エラー発生時はログファイルに記録される
     """
     try:
         with open(file=summary_file, mode="w", encoding="cp932") as f:
+            f.write("CSVファイル名,CSVファイルデータ総行数,CSVファイルの項目名,CSVファイルの項目の値の個数\n")
             for base_name, counts in summary_data.items():
                 fieldnames: list[str] = fieldnames_data.get(base_name, [])
                 data_row_count: int = data_row_counts.get(base_name, 0)
                 for field in fieldnames:
-                    count = counts.get(field, 0)
+                    count: int = counts.get(field, 0)
                     f.write(f"{base_name},{data_row_count},{field},{count}\n")
     except (OSError, IOError) as e:
         log_message(log_file=log_file, message=f"{summary_file}: ファイル操作中にエラーが発生しました: {e}")
@@ -138,7 +216,26 @@ def write_summary_to_file(
 
 
 def main() -> None:
-    """メイン処理を実行する"""
+    """メイン処理を実行する
+
+    カレントディレクトリとサブディレクトリからCSVファイルを検索し、
+    各ファイルのフィールド値カウントを実行します。結果は個別ファイルと
+    統合ファイルの両方に出力されます。
+
+    Returns:
+        None
+
+    Raises:
+        KeyboardInterrupt: ユーザーによる処理中断（Ctrl+C）
+        Exception: その他の予期しないエラー
+
+    Note:
+        - 処理対象: カレントディレクトリ以下の全ての.csvファイル
+        - 出力ファイル: 各CSVファイルに対応する.txtファイル + 統合.txtファイル
+        - ログファイル: スクリプト名.log
+        - フィールドサイズ制限: 500MB
+        - エラー発生時は適切なログ記録と終了処理を実行
+    """
     current_directory: str = os.getcwd()
     csv_files: list[str] = []
     log_file: str = os.path.splitext(p=os.path.basename(p=__file__))[0] + ".log"
