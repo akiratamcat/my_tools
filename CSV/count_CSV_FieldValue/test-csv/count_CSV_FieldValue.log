@@ -1,0 +1,12 @@
+2025-06-27 16:35:52 - プログラム実行を開始しました。
+2025-06-27 16:35:52 - 処理対象のCSVファイル数: 5
+2025-06-27 16:35:52 - C:\GIT_repos\Git_github_akira\my_tools\CSV\count_CSV_FieldValue\test-csv\A\少量データ.csv: 処理が完了しました。
+2025-06-27 16:35:52 - C:\GIT_repos\Git_github_akira\my_tools\CSV\count_CSV_FieldValue\test-csv\B\項目数50個.csv: 処理が完了しました。
+2025-06-27 16:35:52 - C:\GIT_repos\Git_github_akira\my_tools\CSV\count_CSV_FieldValue\test-csv\C\データ０個の列が存在する.csv: 処理が完了しました。
+2025-06-27 16:35:52 - C:\GIT_repos\Git_github_akira\my_tools\CSV\count_CSV_FieldValue\test-csv\D\項目数不足.csv: 行 5 のフィールド数エラー - 期待値: 4, 実際: 3
+2025-06-27 16:35:52 - C:\GIT_repos\Git_github_akira\my_tools\CSV\count_CSV_FieldValue\test-csv\D\項目数不足.csv: 行 6 のフィールド数エラー - 期待値: 4, 実際: 3
+2025-06-27 16:35:52 - C:\GIT_repos\Git_github_akira\my_tools\CSV\count_CSV_FieldValue\test-csv\D\項目数不足.csv: 処理が完了しました。
+2025-06-27 16:35:52 - C:\GIT_repos\Git_github_akira\my_tools\CSV\count_CSV_FieldValue\test-csv\D\項目数過剰.csv: 行 5 のフィールド数エラー - 期待値: 4, 実際: 5
+2025-06-27 16:35:52 - C:\GIT_repos\Git_github_akira\my_tools\CSV\count_CSV_FieldValue\test-csv\D\項目数過剰.csv: 行 6 のフィールド数エラー - 期待値: 4, 実際: 5
+2025-06-27 16:35:52 - C:\GIT_repos\Git_github_akira\my_tools\CSV\count_CSV_FieldValue\test-csv\D\項目数過剰.csv: 処理が完了しました。
+2025-06-27 16:35:52 - プログラム実行が正常に完了しました。
