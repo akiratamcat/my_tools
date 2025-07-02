@@ -316,13 +316,13 @@ def main() -> None:
         - 処理対象: カレントディレクトリ以下の全ての.csvファイル
         - 出力ファイル: 各CSVファイルに対応する.txtファイル + 統合.txtファイル
         - ログファイル: スクリプト名.log
-        - フィールドサイズ制限: 500MB
+        - フィールドサイズ制限: 1 GB
         - エラー発生時は適切なログ記録と終了処理を実行
     """
     current_directory: str = os.getcwd()
     csv_files: list[str] = []
     log_file: str = os.path.splitext(p=os.path.basename(p=__file__))[0] + ".log"
-    field_size_limit: int = 1024 * 1024 * 500  # 500MB
+    field_size_limit: int = 1024 * 1024 * 1024  # 1 GB
 
     # ログファイルを新規作成してプログラム開始ログを記録
     log_message(log_file=log_file, message="プログラム実行を開始しました。", create_new=True)
