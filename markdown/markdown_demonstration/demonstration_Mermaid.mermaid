@@ -1,0 +1,13 @@
+flowchart LR
+
+Customer[顧客]
+Browser[Browser]
+API[API Server]
+DB[(Database)]
+
+Customer --> Browser
+Browser -->|POST /orders| API
+API -->|INSERT| DB
+DB -->|OK| API
+API -->|201 Created| Browser
+Browser --> Customer

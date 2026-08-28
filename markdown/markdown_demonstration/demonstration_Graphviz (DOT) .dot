@@ -1,0 +1,19 @@
+digraph Demo {
+
+    rankdir=LR;
+
+    node [style=filled];
+
+    User [fillcolor=lightblue];
+    Browser [fillcolor=lightyellow];
+    API [fillcolor=lightgreen];
+    DB [shape=cylinder, fillcolor=orange];
+
+    User -> Browser;
+    Browser -> API [label="POST /orders"];
+    API -> DB [label="INSERT"];
+    DB -> API [label="OK"];
+    API -> Browser [label="201 Created"];
+    Browser -> User [label="完了"];
+
+}

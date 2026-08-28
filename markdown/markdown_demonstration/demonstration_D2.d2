@@ -1,0 +1,20 @@
+direction: right
+
+Customer.shape: person
+Database.shape: cylinder
+
+Customer -> Browser: 注文
+
+Browser -> APIServer: POST /orders
+
+APIServer -> Database: INSERT
+
+Database -> APIServer: OK
+
+APIServer -> Browser: 201 Created
+
+Browser -> Customer: 注文完了
+
+Browser.style.fill: "#dae8fc"
+APIServer.style.fill: "#d5e8d4"
+Database.style.fill: "#ffe6cc"
