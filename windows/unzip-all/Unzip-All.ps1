@@ -53,11 +53,14 @@ if ($archives.Count -eq 0) {
     exit ([int]$hadErrors)
 }
 
-# 各ZIPの隣に同名フォルダを作り、その中へ展開します。
+# 各ZIPの隣に同名フォルダを用意し、既存の場合は削除してから展開します。
 foreach ($archive in $archives) {
     try {
         $destinationPath = Join-Path -Path $archive.DirectoryName -ChildPath $archive.BaseName
         Write-Host "展開中: $($archive.FullName)"
+        if (Test-Path -LiteralPath $destinationPath -PathType Container) {
+            Remove-Item -LiteralPath $destinationPath -Recurse -Force -ErrorAction Stop
+        }
         Expand-Archive -LiteralPath $archive.FullName -DestinationPath $destinationPath -ErrorAction Stop
         Write-Host "完了: $destinationPath"
     }
